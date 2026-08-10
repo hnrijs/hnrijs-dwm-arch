@@ -24,10 +24,10 @@ sudo pacman -S --needed --noconfirm \
     base-devel wget xorg-server xorg-xinit libx11 libxft libxinerama \
     thunar rofi imv cava btop playerctl alacritty zip unzip polkit-gnome \
     xclip maim ttf-jetbrains-mono-nerd noto-fonts-emoji ttf-nerd-fonts-symbols \
-    gtk3 fastfetch pavucontrol nwg-look mpv brightnessctl xsettingsd micro nano vim \
+    gtk3 fastfetch pavucontrol nwg-look vlc brightnessctl xsettingsd nano vim \
     xorg-xrandr power-profiles-daemon python-gobject arandr \
     lightdm lightdm-gtk-greeter materia-theme dunst xorg-xinput \
-    curl jq xdg-utils libnotify \
+    curl jq xdg-utils libnotify xautolock xorg-xset \
     clipmenu xsel xdotool tumbler ttf-dejavu ttf-font-awesome noto-fonts \
     noto-fonts-cjk gvfs udisks2 thunar-volman switcheroo xwallpaper
 
@@ -110,10 +110,8 @@ EOF
 if [ -f "$SCRIPT_DIR/main.png" ]; then
     echo "Setting up main.png for user and LightDM..."
     cp "$SCRIPT_DIR/main.png" "$HOME/Pictures/main.png"
-    # Copy to a system directory so LightDM can read it before login
     sudo cp "$SCRIPT_DIR/main.png" /usr/share/pixmaps/main-wallpaper.png
     
-    # Configure LightDM GTK Greeter
     sudo bash -c 'cat << EOF > /etc/lightdm/lightdm-gtk-greeter.conf
 [greeter]
 background = /usr/share/pixmaps/main-wallpaper.png
@@ -123,7 +121,7 @@ font-name = JetBrainsMono Nerd Font 11
 EOF'
 fi
 
-# 11. Setup .xprofile
+# 11. Setup .xprofile with DPMS and xautolock
 echo "Setting up X11 startup script (.xprofile)..."
 cat << 'EOF' > "$HOME/.xprofile"
 #!/bin/bash
@@ -135,6 +133,10 @@ export CM_SELECTIONS="clipboard"
 if [ -f "$HOME/.Xresources" ]; then
     xrdb -merge "$HOME/.Xresources"
 fi
+
+xset +dpms
+xset dpms 120 120 120
+xautolock -time 1 -locker "slock" -killtime 4 -killer "systemctl suspend" &
 
 xwallpaper --zoom "$HOME/Pictures/main.png" &
 slstatus &
@@ -169,7 +171,24 @@ X-LightDM-DesktopName=dwm
 DesktopNames=dwm
 EOF
 
-# 14. Make custom scripts executable
+# 14. Make custom scripts executable and generate toggle script
+mkdir -p "$HOME/.config/scripts"
+
+echo "Creating idle-toggle.sh script..."
+cat << 'EOF' > "$HOME/.config/scripts/idle-toggle.sh"
+#!/bin/bash
+if xset q | grep -q "DPMS is Enabled"; then
+    xset -dpms
+    xautolock -disable
+    notify-send -u normal "Caffeine Mode" "Enabled: Screen will not turn off."
+else
+    xset +dpms
+    xset dpms 120 120 120
+    xautolock -enable
+    notify-send -u normal "Idle Mode" "Enabled: Lock (1m) -> Off (2m) -> Sleep (5m)."
+fi
+EOF
+
 if [ -d "$HOME/.config/scripts" ]; then
     chmod +x "$HOME/.config/scripts/"*
 fi

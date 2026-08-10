@@ -42,7 +42,7 @@ if ! command -v yay &> /dev/null; then
     rm -rf /tmp/yay-build
 fi
 
-# 4. Install AUR packages (LibreWolf instead of Helium)
+# 4. Install AUR packages LibreWolf
 echo "Installing AUR packages..."
 yay -S --noconfirm librewolf-bin
 

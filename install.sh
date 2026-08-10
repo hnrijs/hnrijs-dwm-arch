@@ -27,7 +27,7 @@ sudo pacman -S --needed --noconfirm \
     gtk3 fastfetch pavucontrol nwg-look mpv brightnessctl xsettingsd micro nano vim \
     xorg-xrandr power-profiles-daemon python-gobject arandr \
     lightdm lightdm-gtk-greeter materia-theme dunst xorg-xinput \
-    curl jq xdg-utils tesseract tesseract-data-eng imagemagick libnotify \
+    curl jq xdg-utils libnotify \
     clipmenu xsel xdotool tumbler ttf-dejavu ttf-font-awesome noto-fonts \
     noto-fonts-cjk gvfs udisks2 thunar-volman switcheroo xwallpaper
 

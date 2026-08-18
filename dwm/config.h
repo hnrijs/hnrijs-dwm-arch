@@ -78,6 +78,7 @@ static const char *protonvpncmd[]   = { "protonvpn-app", NULL };
 
 static const char *powermenu[]      = { "sh", "-c", "$HOME/.config/scripts/rofi-powermenu.sh", NULL };
 static const char *sysmenu[]        = { "sh", "-c", "$HOME/.config/scripts/sysmenu.sh", NULL };
+static const char *wallpapercmd[]   = { "sh", "-c", "$HOME/.config/scripts/wallpaper-selector.sh", NULL };
 static const char *idletoggle[]     = { "sh", "-c", "$HOME/.config/scripts/idle-toggle.sh", NULL };
 static const char *powerprof[]      = { "sh", "-c", "$HOME/.config/scripts/power_profile.sh", NULL };
 static const char *screenshot[]     = { "sh", "-c", "mkdir -p $HOME/Pictures/Screenshots && f=$HOME/Pictures/Screenshots/scr_$(date +%s).png && maim -s \"$f\" && xclip -selection clipboard -t image/png -i \"$f\"", NULL };
@@ -117,6 +118,7 @@ static const Key keys[] = {
     { MODKEY|ShiftMask,             XK_l,      spawn,          {.v = lockcmd } },
     { MODKEY,                       XK_Escape, spawn,          {.v = powermenu } },
     { MODKEY|ShiftMask,             XK_space,  spawn,          {.v = sysmenu } },
+    { MODKEY|ShiftMask,             XK_w,      spawn,          {.v = wallpapercmd } },
     { MODKEY|ShiftMask,             XK_i,      spawn,          {.v = idletoggle } },
     { MODKEY|ShiftMask,             XK_p,      spawn,          {.v = powerprof } },
 

@@ -67,14 +67,9 @@ static const char unknown_str[] = "n/a";
 static const struct arg args[] = {
     /* function      format            argument */
     { run_command,   " 󰓅 %s ",         "powerprofilesctl get 2>/dev/null | sed 's/power-saver/S/;s/balanced/B/;s/performance/P/'" },
-    { run_command,   " 󰖂 %s ",         "ip link show up 2>/dev/null | grep -qE 'tun[0-9]+|wg[0-9]+|proton|pvpn' && echo 'ON' || echo 'OFF'" },
-    { disk_perc,     " 󰋊 %s%% ",       "/" },
-    { ram_perc,      " 󰍛 %s%% ",       NULL },
-    { cpu_perc,      " 󰻠 %s%% ",       NULL },
+    { run_command,   " 󰛊 %s ",         "xset q | grep -q 'DPMS is Enabled' && echo 'I' || echo 'C'" },
+    { run_command,   " 󰃠 %s ",         "brightnessctl info 2>/dev/null | grep -o '[0-9]*%' | head -n 1" },
     { run_command,   " 󰕾 %s ",         "pactl get-sink-volume @DEFAULT_SINK@ 2>/dev/null | grep -o '[0-9]*%' | head -n 1" },
-    { battery_perc,  " 󰁹 %s%% ",       "BAT1" },
-    { keymap,        " 󰌌 %s ",         NULL },
     { datetime,      " 󰸗 %s ",         "%a %b %-d" },
-    { datetime,      " 󰥔 %s ",         "%-l:%M %p" },
+    { datetime,      " 󰥔 %s ",         "%-l:%M %p " },
 };
-

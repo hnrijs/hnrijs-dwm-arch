@@ -11,51 +11,51 @@ suspend='󰤄'
 logout='󰍃'
 
 rofi_cmd() {
-	rofi -dmenu \
-		-p "  $USER" \
-		-mesg "  Uptime: $uptime" \
-		-theme-str "imagebox { background-image: url(\"$HOME/Pictures/main.png\", height); }" \
-		-config "$HOME/.config/rofi/rofi-powermenu-config.rasi"
+    rofi -dmenu \
+        -p "  $USER" \
+        -mesg "  Uptime: $uptime" \
+        -theme-str "imagebox { background-image: none; background-color: black; }" \
+        -config "$HOME/.config/rofi/rofi-powermenu-config.rasi"
 }
 
 run_rofi() {
-	echo -e "$lock\n$reboot\n$logout\n$suspend\n$shutdown\n$hibernate" | rofi_cmd
+    echo -e "$lock\n$reboot\n$logout\n$suspend\n$shutdown\n$hibernate" | rofi_cmd
 }
 
 run_cmd() {
-	if [[ $1 == '--shutdown' ]]; then
-		systemctl poweroff || loginctl poweroff
-	elif [[ $1 == '--reboot' ]]; then
-		systemctl reboot || loginctl reboot
-	elif [[ $1 == '--hibernate' ]]; then
-		systemctl hibernate
-	elif [[ $1 == '--suspend' ]]; then
-		amixer set Master mute
-		systemctl suspend
-	elif [[ $1 == '--logout' ]]; then
-		pkill dwm  
-	fi
+    if [[ $1 == '--shutdown' ]]; then
+        systemctl poweroff || loginctl poweroff
+    elif [[ $1 == '--reboot' ]]; then
+        systemctl reboot || loginctl reboot
+    elif [[ $1 == '--hibernate' ]]; then
+        systemctl hibernate
+    elif [[ $1 == '--suspend' ]]; then
+        amixer set Master mute
+        systemctl suspend
+    elif [[ $1 == '--logout' ]]; then
+        pkill dwm  
+    fi
 }
 
 chosen="$(run_rofi)"
 case ${chosen} in
     $shutdown)
-		run_cmd --shutdown
+        run_cmd --shutdown
         ;;
     $reboot)
-		run_cmd --reboot
+        run_cmd --reboot
         ;;
     $hibernate)
-		run_cmd --hibernate
+        run_cmd --hibernate
         ;;
     $lock)
         slock
-		;;
+        ;;
     $suspend)
         slock & sleep 0.5 
-		run_cmd --suspend
+        run_cmd --suspend
         ;;
     $logout)
-		run_cmd --logout
+        run_cmd --logout
         ;;
 esac

@@ -277,17 +277,17 @@ case "$chosen" in
                     ;;
                 "Configure Night Light")
                     while true; do
-                        nl_options="Toggle Night Light (3500K)\nReset to Daylight (6500K)\nCustom Temp (CLI)\nBack"
+                        nl_options="Toggle Night Light (4500K)\nReset to Daylight (6500K)\nCustom Temp (CLI)\nBack"
                         nl_chosen="$(echo -e "$nl_options" | rofi -dmenu -p "Night Light Menu")"
                         
                         case "$nl_chosen" in
-                            "Toggle Night Light (3500K)")
+                            "Toggle Night Light (4500K)")
                                 if ! pacman -Q redshift &>/dev/null; then
                                     alacritty -e sh -c "sudo pacman -S --noconfirm redshift"
                                 fi
                                 pkill redshift
-                                redshift -O 3500 &
-                                dunstify -u low "Night Light" "Enabled (3500K)"
+                                redshift -O 4500 &
+                                dunstify -u low "Night Light" "Enabled (4500K)"
                                 ;;
                             "Reset to Daylight (6500K)")
                                 pkill redshift

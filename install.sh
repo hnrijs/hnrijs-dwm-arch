@@ -25,7 +25,7 @@ sudo pacman -S --needed --noconfirm \
     thunar rofi imv cava btop playerctl alacritty zip unzip polkit-gnome \
     xclip maim ttf-jetbrains-mono-nerd noto-fonts-emoji ttf-nerd-fonts-symbols \
     gtk3 fastfetch pavucontrol nwg-look mpv brightnessctl xsettingsd nano vim \
-    xorg-xrandr power-profiles-daemon python-gobject arandr \
+    xorg-xrandr power-profiles-daemon python-gobject arandr baobab \
     lightdm lightdm-gtk-greeter materia-theme dunst xorg-xinput \
     curl jq xdg-utils libnotify xorg-xset librewolf imagemagick \
     clipmenu xsel xdotool tumbler ttf-dejavu ttf-font-awesome noto-fonts \

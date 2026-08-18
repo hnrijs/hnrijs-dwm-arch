@@ -206,7 +206,11 @@ alias uslock='cd "$HOME/slock" && sudo make clean install'
 alias uslstatus='cd "$HOME/slstatus" && sudo make clean install'
 EOF
 
-# 17. Enable system services
+# 17. Fix Micro text editor default terminal
+echo "Setting Alacritty as default terminal for external apps..."
+sudo ln -sf /usr/bin/alacritty /usr/bin/xterm
+
+# 18. Enable system services
 echo "Enabling services..."
 sudo systemctl enable --now power-profiles-daemon
 sudo systemctl enable lightdm

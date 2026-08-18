@@ -2,31 +2,37 @@
     monitor = 0
     follow = mouse
     width = 300
-    height = 150
-    offset = 10x40
+    offset = 15x45
     origin = top-right
     scale = 0
     notification_limit = 5
 
     progress_bar = true
-    progress_bar_height = 10
-    progress_bar_frame = 1
+    progress_bar_height = 8
+    progress_bar_frame = 0
     progress_bar_min_width = 150
     progress_bar_max_width = 300
     highlight = "#FFFFFF"
+
     indicate_hidden = yes
     transparency = 0
     separator_height = 2
-    padding = 10
-    horizontal_padding = 10
-    text_icon_padding = 0
+    
+    padding = 15
+    horizontal_padding = 15
+    text_icon_padding = 15
+    
     frame_width = 2
     frame_color = "#FFFFFF"
     separator_color = "frame"
     sort = yes
+    
+    # Modern look
+    corner_radius = 8
+    gap_size = 6
 
-    font = JetBrainsMono Nerd Font Bold 10
-    line_height = 0
+    font = JetBrainsMono Nerd Font 10
+    line_height = 3
     markup = full
     format = "<b>%s</b>\n%b"
     alignment = left
@@ -40,9 +46,10 @@
     show_indicators = yes
 
     enable_recursive_icon_lookup = true
+    icon_theme = "Adwaita"
     icon_position = left
-    min_icon_size = 32
-    max_icon_size = 64
+    min_icon_size = 24
+    max_icon_size = 48
 
     mouse_left_click = close_current
     mouse_middle_click = do_action, close_current
@@ -50,16 +57,19 @@
 
 [urgency_low]
     background = "#0A0A0A"
-    foreground = "#FFFFFF"
+    foreground = "#CCCCCC"
+    frame_color = "#444444"
     timeout = 4
 
 [urgency_normal]
     background = "#0A0A0A"
     foreground = "#FFFFFF"
+    frame_color = "#FFFFFF"
     timeout = 6
 
 [urgency_critical]
-    background = "#0A0A0A"
-    foreground = "#FFFFFF"
+    background = "#FFFFFF"
+    foreground = "#000000"
     frame_color = "#FFFFFF"
+    highlight = "#000000"
     timeout = 0

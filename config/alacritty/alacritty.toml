@@ -2,12 +2,26 @@
 opacity = 0.85
 blur = true
 padding = { x = 10, y = 10 }
+dynamic_padding = true
 
 [font]
-size = 10.0
+size = 11.0
 
+[font.normal]
+family = "JetBrainsMono Nerd Font"
+style = "Regular"
 
+[font.bold]
+family = "JetBrainsMono Nerd Font"
+style = "Bold"
 
+[font.italic]
+family = "JetBrainsMono Nerd Font"
+style = "Italic"
+
+[cursor]
+style = { shape = "Block", blinking = "Always" }
+blink_interval = 500
 
 [colors.primary]
 background = "#000000"

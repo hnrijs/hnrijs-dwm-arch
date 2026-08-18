@@ -24,10 +24,10 @@ sudo pacman -S --needed --noconfirm \
     base-devel wget xorg-server xorg-xinit libx11 libxft libxinerama \
     thunar rofi imv cava btop playerctl alacritty zip unzip polkit-gnome \
     xclip maim ttf-jetbrains-mono-nerd noto-fonts-emoji ttf-nerd-fonts-symbols \
-    gtk3 fastfetch pavucontrol nwg-look vlc brightnessctl xsettingsd nano vim \
+    gtk3 fastfetch pavucontrol nwg-look mpv brightnessctl xsettingsd nano vim \
     xorg-xrandr power-profiles-daemon python-gobject arandr \
     lightdm lightdm-gtk-greeter materia-theme dunst xorg-xinput \
-    curl jq xdg-utils libnotify xautolock xorg-xset \
+    curl jq xdg-utils libnotify xorg-xset librewolf \
     clipmenu xsel xdotool tumbler ttf-dejavu ttf-font-awesome noto-fonts \
     noto-fonts-cjk gvfs udisks2 thunar-volman switcheroo xwallpaper
 
@@ -44,7 +44,7 @@ fi
 
 # 4. Install AUR packages LibreWolf
 echo "Installing AUR packages..."
-yay -S --noconfirm librewolf-bin
+yay -S --noconfirm xautolock
 
 # 5. Copy configuration files (.config directory)
 echo "Copying config files to $HOME/.config/..."
@@ -143,6 +143,7 @@ slstatus &
 dunst &
 clipmenud &
 $HOME/.config/scripts/screen.sh &
+$HOME/.config/scripts/usb-notifier.sh &
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 EOF
 chmod +x "$HOME/.xprofile"

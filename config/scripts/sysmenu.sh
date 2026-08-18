@@ -1,5 +1,20 @@
 #!/bin/bash
 
+# Helper function to send OSD notifications with a progress bar
+notify_osd() {
+    local title="$1"
+    local value="$2"
+    local icon="$3"
+    
+    # Ensure value is between 0 and 100 for the progress bar
+    local clean_val="${value%%%*}"
+    if [ "$clean_val" -gt 100 ]; then clean_val=100; fi
+    if [ "$clean_val" -lt 0 ]; then clean_val=0; fi
+
+    dunstify -a "sysmenu_osd" -u low -h string:x-dunst-stack-tag:osd -h int:value:"$clean_val" "$icon $title: $value"
+}
+
+
 options="Configure DWM\nConfigure System\nConfigure Appearance\nSystem Tools"
 
 chosen="$(echo -e "$options" | rofi -dmenu -p "System Menu")"
@@ -41,7 +56,7 @@ case "$chosen" in
         ;;
     "Configure System")
         while true; do
-            sys_options="Configure Audio\nConfigure Network\nConfigure Bluetooth\nConfigure Monitors\nConfigure Keyboard\nConfigure Mouse\nConfigure Brightness\nConfigure DNS\nConfigure Firewall\nBack"
+            sys_options="Configure Audio\nConfigure Network\nConfigure Bluetooth\nConfigure Monitors\nConfigure Keyboard\nConfigure Mouse\nConfigure Brightness\nConfigure Night Light\nConfigure DNS\nConfigure Firewall\nBack"
             sys_chosen="$(echo -e "$sys_options" | rofi -dmenu -p "System Settings")"
             
             case "$sys_chosen" in
@@ -60,12 +75,23 @@ case "$chosen" in
                                 ;;
                             "Volume Up (+5%)")
                                 pactl set-sink-volume @DEFAULT_SINK@ +5%
+                                current_vol=$(pactl get-sink-volume @DEFAULT_SINK@ | grep -Po '\d+(?=%)' | head -n 1)
+                                notify_osd "Volume" "${current_vol}%" ""
                                 ;;
                             "Volume Down (-5%)")
                                 pactl set-sink-volume @DEFAULT_SINK@ -5%
+                                current_vol=$(pactl get-sink-volume @DEFAULT_SINK@ | grep -Po '\d+(?=%)' | head -n 1)
+                                notify_osd "Volume" "${current_vol}%" ""
                                 ;;
                             "Mute Toggle")
                                 pactl set-sink-mute @DEFAULT_SINK@ toggle
+                                is_muted=$(pactl get-sink-mute @DEFAULT_SINK@ | grep -o 'yes')
+                                if [ "$is_muted" = "yes" ]; then
+                                    dunstify -a "sysmenu_osd" -u low -h string:x-dunst-stack-tag:osd "󰖁 Volume: Muted"
+                                else
+                                     current_vol=$(pactl get-sink-volume @DEFAULT_SINK@ | grep -Po '\d+(?=%)' | head -n 1)
+                                     notify_osd "Volume" "${current_vol}%" ""
+                                fi
                                 ;;
                             "Back"|*)
                                 break
@@ -227,15 +253,49 @@ case "$chosen" in
                         case "$bright_chosen" in
                             "Brightness Up (+5%)")
                                 brightnessctl set +5%
+                                current_br=$(brightnessctl i | grep -Po '(?<=\()\d+(?=%\))')
+                                notify_osd "Brightness" "${current_br}%" "󰃠"
                                 ;;
                             "Brightness Down (-5%)")
                                 brightnessctl set 5%-
+                                current_br=$(brightnessctl i | grep -Po '(?<=\()\d+(?=%\))')
+                                notify_osd "Brightness" "${current_br}%" "󰃝"
                                 ;;
                             "Max Brightness (100%)")
                                 brightnessctl set 100%
+                                notify_osd "Brightness" "100%" "󰃠"
                                 ;;
                             "Min Brightness (10%)")
                                 brightnessctl set 10%
+                                notify_osd "Brightness" "10%" "󰃞"
+                                ;;
+                            "Back"|*)
+                                break
+                                ;;
+                        esac
+                    done
+                    ;;
+                "Configure Night Light")
+                    while true; do
+                        nl_options="Toggle Night Light (3500K)\nReset to Daylight (6500K)\nCustom Temp (CLI)\nBack"
+                        nl_chosen="$(echo -e "$nl_options" | rofi -dmenu -p "Night Light Menu")"
+                        
+                        case "$nl_chosen" in
+                            "Toggle Night Light (3500K)")
+                                if ! pacman -Q redshift &>/dev/null; then
+                                    alacritty -e sh -c "sudo pacman -S --noconfirm redshift"
+                                fi
+                                pkill redshift
+                                redshift -O 3500 &
+                                dunstify -u low "Night Light" "Enabled (3500K)"
+                                ;;
+                            "Reset to Daylight (6500K)")
+                                pkill redshift
+                                redshift -x
+                                dunstify -u low "Night Light" "Reset to Daylight (6500K)"
+                                ;;
+                            "Custom Temp (CLI)")
+                                alacritty -e sh -c "echo 'Enter desired temperature (e.g., 4000): '; read temp; pkill redshift; redshift -O \$temp; echo 'Applied!'; sleep 2"
                                 ;;
                             "Back"|*)
                                 break
@@ -346,7 +406,7 @@ case "$chosen" in
         ;;
     "System Tools")
         while true; do
-            tools_options="Take Screenshot\nSystem Clean\nSystem Update\nTask Manager\nReload Slstatus\nReload Dunst\nChange Power Plan\nBack"
+            tools_options="Take Screenshot\nSystem Clean\nSystem Update\nTask Manager\nReload Slstatus\nReload Dunst\nToggle Idle Mode\nChange Power Plan\nBack"
             tools_chosen="$(echo -e "$tools_options" | rofi -dmenu -p "System Tools")"
             
             case "$tools_chosen" in
@@ -402,6 +462,10 @@ case "$chosen" in
                 "Reload Dunst")
                     pkill dunst
                     dunst &
+                    ;;
+                 "Toggle Idle Mode")
+                    $HOME/.config/scripts/idle-toggle.sh &
+                    break
                     ;;
                 "Change Power Plan")
                     while true; do

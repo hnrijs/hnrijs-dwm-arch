@@ -1,91 +1,99 @@
 configuration {
-    font: "monospace 12";
-    show-icons: false;
-    modi: "drun,run";
+    font: "JetBrainsMono Nerd Font 12";
+    show-icons: true;
+    icon-theme: "Adwaita";
+    display-drun: " ";
+    display-run: " ";
+    display-window: " ";
+    drun-display-format: "{name}";
+    modi: "window,run,drun";
 }
 
 * {
-    bg: #000000;
-    bg-alt: #000000;
-    bg-soft: #FFFFFF;
-
-    fg: #888888;
-    fg-bright: #000000;
-    fg-dim: #555555;
-
-    accent-white: #FFFFFF;
-    edge: #333333;
-
-    background-color: transparent;
+    /* Minimalist Black & White Colors */
+    bg: #000000;          /* Tīri melns fons */
+    bg-alt: #151515;      /* Nedaudz gaišāks melns iezīmētajam elementam */
+    fg: #FFFFFF;          /* Tīri balts teksts */
+    fg-alt: #666666;      /* Pelēks teksts neaktīvajiem elementiem */
+    accent: #FFFFFF;      /* Baltas līnijas un akcenti */
+    
+    background-color: @bg;
     text-color: @fg;
 }
 
 window {
-    width: 35%;
-    padding: 8px;
-    border: 2px;
-    border-color: @accent-white;
+    width: 600px;
+    border: 2px solid;
+    border-color: @accent;
     background-color: @bg;
+    padding: 0px;
 }
 
 mainbox {
-    background-color: @bg;
-    spacing: 6px;
+    spacing: 0px;
     children: [ inputbar, listview ];
 }
 
 inputbar {
-    background-color: @bg-alt;
-    padding: 6px;
-    border: 1px;
-    border-color: @edge;
-    children: [ entry ];
+    padding: 15px;
+    background-color: @bg;
+    border: 0 0 1px 0 solid;
+    border-color: @fg-alt;
+    children: [ prompt, entry ];
+}
+
+prompt {
+    text-color: @accent;
+    padding: 0 15px 0 0;
+    font: "JetBrainsMono Nerd Font 14";
+    vertical-align: 0.5;
 }
 
 entry {
+    placeholder: "Search...";
+    placeholder-color: @fg-alt;
+    text-color: @fg;
     background-color: transparent;
-    text-color: #FFFFFF;
-    placeholder: "search";
-    placeholder-color: @fg-dim;
+    vertical-align: 0.5;
 }
 
 listview {
-    background-color: @bg;
+    columns: 1;
     lines: 8;
-    spacing: 3px;
-    scrollbar: true;
+    padding: 10px;
+    spacing: 5px;
+    background-color: @bg;
     border: 0px;
+    scrollbar: false;
 }
 
 element {
-    background-color: @bg;
-    text-color: @fg;
-    padding: 4px 6px;
+    padding: 10px;
+    background-color: transparent;
+    text-color: @fg-alt;
 }
 
-element normal.normal,
-element alternate.normal {
-    background-color: @bg;
-    text-color: @fg;
-}
-
-element selected.normal {
-    background-color: @bg-soft;
-    text-color: @fg-bright;
+element-icon {
+    size: 24px;
+    padding: 0 15px 0 0;
+    background-color: transparent;
 }
 
 element-text {
+    vertical-align: 0.5;
     background-color: transparent;
     text-color: inherit;
 }
 
-element-icon {
+element normal.normal,
+element alternate.normal {
     background-color: transparent;
+    text-color: @fg-alt;
 }
 
-scrollbar {
-    background-color: @bg;
-    handle-color: @edge;
-    border: 0px;
-    width: 5px;
+element selected.normal {
+    background-color: @bg-alt;
+    text-color: @accent;
+    border: 1px solid;
+    border-color: @accent;
 }

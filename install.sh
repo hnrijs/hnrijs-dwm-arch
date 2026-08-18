@@ -16,7 +16,7 @@ fi
 
 # 1. Create standard home directories
 echo "Creating user directories..."
-mkdir -p "$HOME/Documents" "$HOME/Music" "$HOME/Downloads" "$HOME/Pictures" "$HOME/Videos" "$HOME/.config"
+mkdir -p "$HOME/Documents" "$HOME/Music" "$HOME/Downloads" "$HOME/Pictures/Wallpapers" "$HOME/Videos" "$HOME/.config"
 
 # 2. Update system and install official pacman packages
 echo "Installing official pacman packages..."
@@ -27,7 +27,7 @@ sudo pacman -S --needed --noconfirm \
     gtk3 fastfetch pavucontrol nwg-look mpv brightnessctl xsettingsd nano vim \
     xorg-xrandr power-profiles-daemon python-gobject arandr \
     lightdm lightdm-gtk-greeter materia-theme dunst xorg-xinput \
-    curl jq xdg-utils libnotify xorg-xset librewolf \
+    curl jq xdg-utils libnotify xorg-xset librewolf imagemagick \
     clipmenu xsel xdotool tumbler ttf-dejavu ttf-font-awesome noto-fonts \
     noto-fonts-cjk gvfs udisks2 thunar-volman switcheroo xwallpaper redshift
 
@@ -42,7 +42,7 @@ if ! command -v yay &> /dev/null; then
     rm -rf /tmp/yay-build
 fi
 
-# 4. Install AUR packages LibreWolf
+# 4. Install AUR packages
 echo "Installing AUR packages..."
 yay -S --noconfirm xautolock
 
@@ -107,19 +107,28 @@ EndSection
 EOF
 
 # 10. Copy wallpaper and setup LightDM greeter background
+echo "Setting up wallpapers for user and LightDM..."
 if [ -f "$SCRIPT_DIR/main.png" ]; then
-    echo "Setting up main.png for user and LightDM..."
-    cp "$SCRIPT_DIR/main.png" "$HOME/Pictures/main.png"
+    cp "$SCRIPT_DIR/main.png" "$HOME/Pictures/Wallpapers/main.png"
     sudo cp "$SCRIPT_DIR/main.png" /usr/share/pixmaps/main-wallpaper.png
-    
-    sudo bash -c 'cat << EOF > /etc/lightdm/lightdm-gtk-greeter.conf
+fi
+
+# If repository has a Wallpapers directory, copy all of them
+if [ -d "$SCRIPT_DIR/Wallpapers" ]; then
+    cp -r "$SCRIPT_DIR/Wallpapers/"* "$HOME/Pictures/Wallpapers/" 2>/dev/null || true
+fi
+
+# Allow non-root users to overwrite the LightDM wallpaper on demand
+sudo touch /usr/share/pixmaps/main-wallpaper.png
+sudo chmod 666 /usr/share/pixmaps/main-wallpaper.png
+
+sudo bash -c 'cat << EOF > /etc/lightdm/lightdm-gtk-greeter.conf
 [greeter]
 background = /usr/share/pixmaps/main-wallpaper.png
 theme-name = Materia-dark
 icon-theme-name = Adwaita
 font-name = JetBrainsMono Nerd Font 11
 EOF'
-fi
 
 # 11. Setup .xprofile with DPMS and xautolock
 echo "Setting up X11 startup script (.xprofile)..."
@@ -138,12 +147,12 @@ xset +dpms
 xset dpms 120 120 120
 xautolock -time 1 -locker "slock" -killtime 4 -killer "systemctl suspend" &
 
-xwallpaper --zoom "$HOME/Pictures/main.png" &
+xwallpaper --zoom "$HOME/Pictures/Wallpapers/main.png" &
 slstatus &
 dunst &
 clipmenud &
 $HOME/.config/scripts/screen.sh &
-$HOME/.config/scripts/usb-notifier.sh &
+$HOME/.config/scripts/notifier.sh &
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 EOF
 chmod +x "$HOME/.xprofile"
@@ -199,7 +208,7 @@ echo "Fixing home paths in configurations for $USER..."
 find "$HOME/.config" -type f -exec sed -i "s|/home/[^/]*|$HOME|g" {} + 2>/dev/null || true
 
 # 16. Add dwm update alias to .bashrc
-echo "Adding udwm alias to .bashrc..."
+echo "Adding aliases to .bashrc..."
 cat << 'EOF' >> "$HOME/.bashrc"
 alias udwm='cd "$HOME/dwm" && sudo make clean install'
 alias uslock='cd "$HOME/slock" && sudo make clean install'

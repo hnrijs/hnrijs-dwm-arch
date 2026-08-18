@@ -24,11 +24,11 @@ for imagen in "$wall_dir"/*.{jpg,jpeg,png,webp,JPG,JPEG,PNG,WEBP}; do
     fi
 done
 
-# Rofi theme overrides to create a nice Grid Layout dynamically
-rofi_override="window { width: 850px; } listview { columns: 4; lines: 3; spacing: 10px; } element { orientation: vertical; padding: 15px; } element-icon { size: 140px; horizontal-align: 0.5; } element-text { horizontal-align: 0.5; }"
+# Rofi theme overrides to create a nice, fixed Grid Layout with a scrollbar
+rofi_override="window { width: 880px; border-radius: 8px; } listview { columns: 4; lines: 3; spacing: 15px; fixed-height: true; fixed-columns: true; scrollbar: true; } scrollbar { handle-width: 5px; handle-color: #FFFFFF; background-color: #151515; border: 0px; } element { orientation: vertical; padding: 15px; border-radius: 6px; } element-icon { size: 150px; horizontal-align: 0.5; } element-text { horizontal-align: 0.5; padding: 10px 0 0 0; }"
 
-# Select a picture with rofi
-wall_selection=$(find "$wall_dir" -maxdepth 1 -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.webp" \) -exec basename {} \; | while read -r A ; do
+# Select a picture with rofi (Sorted logically with sort -V)
+wall_selection=$(find "$wall_dir" -maxdepth 1 -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.webp" \) -exec basename {} \; | sort -V | while read -r A ; do
     echo -en "$A\0icon\x1f${cache_dir}/$A\n"
 done | rofi -dmenu -theme-str "${rofi_override}" -p "Wallpapers")
 
@@ -40,8 +40,12 @@ if [[ -n "$wall_selection" ]]; then
     xwallpaper --zoom "$selected_wp"
     
     # 2. Sync to LightDM login background
-    if [ -f "$lightdm_wall" ] || [ -w "/usr/share/pixmaps" ]; then
-        cp "$selected_wp" "$lightdm_wall" 2>/dev/null || true
+    if [ -w "$lightdm_wall" ]; then
+        # File is writable (chmod 666 was applied), overwrite directly
+        cat "$selected_wp" > "$lightdm_wall"
+    else
+        # File is protected, prompt for graphical sudo password using pkexec
+        pkexec cp "$selected_wp" "$lightdm_wall"
     fi
 
     # 3. Dynamically update .xprofile

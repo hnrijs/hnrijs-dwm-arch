@@ -25,7 +25,7 @@ sudo pacman -S --needed --noconfirm \
     thunar rofi imv cava btop playerctl alacritty zip unzip polkit-gnome \
     xclip maim ttf-jetbrains-mono-nerd noto-fonts-emoji ttf-nerd-fonts-symbols \
     gtk3 fastfetch pavucontrol nwg-look mpv brightnessctl xsettingsd nano vim \
-    xorg-xrandr power-profiles-daemon python-gobject arandr baobab \
+    xorg-xrandr power-profiles-daemon python-gobject arandr picom \
     lightdm lightdm-gtk-greeter materia-theme dunst xorg-xinput qalculate-gtk \
     curl jq xdg-utils libnotify xorg-xset librewolf imagemagick audacious \
     clipmenu xsel xdotool tumbler ttf-dejavu ttf-font-awesome noto-fonts \
@@ -151,6 +151,7 @@ xwallpaper --zoom "$HOME/Pictures/Wallpapers/main.png" &
 slstatus &
 dunst &
 clipmenud &
+picom &
 $HOME/.config/scripts/screen.sh &
 $HOME/.config/scripts/notifier.sh &
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &

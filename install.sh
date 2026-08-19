@@ -144,10 +144,8 @@ if [ -f "$HOME/.Xresources" ]; then
     xrdb -merge "$HOME/.Xresources"
 fi
 
-xset +dpms
-xset dpms 120 120 120
-xautolock -time 1 -locker "slock" -killtime 4 -killer "systemctl suspend" &
 
+xidlehook --not-when-audio --not-when-fullscreen --timer 60 "slock" "" --timer 60 "xset dpms force off" "" --timer 180 "systemctl suspend" "" &
 xwallpaper --zoom "$HOME/Pictures/Wallpapers/main.png" &
 slstatus &
 dunst &
@@ -185,21 +183,6 @@ EOF
 
 # 14. Make custom scripts executable and generate toggle script
 mkdir -p "$HOME/.config/scripts"
-
-echo "Creating idle-toggle.sh script..."
-cat << 'EOF' > "$HOME/.config/scripts/idle-toggle.sh"
-#!/bin/bash
-if xset q | grep -q "DPMS is Enabled"; then
-    xset -dpms
-    xautolock -disable
-    notify-send -u normal "Caffeine Mode" "Enabled: Screen will not turn off."
-else
-    xset +dpms
-    xset dpms 120 120 120
-    xautolock -enable
-    notify-send -u normal "Idle Mode" "Enabled: Lock (1m) -> Off (2m) -> Sleep (5m)."
-fi
-EOF
 
 if [ -d "$HOME/.config/scripts" ]; then
     chmod +x "$HOME/.config/scripts/"*

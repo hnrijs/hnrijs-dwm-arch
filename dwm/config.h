@@ -64,7 +64,7 @@ static const Layout layouts[] = {
 
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
-/* commands */
+/* Apps */
 static char dmenumon[2] = "0";
 static const char *dmenucmd[]       = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_bg, "-nf", col_fg, "-sb", col_bg, "-sf", col_fg_active, NULL };
 static const char *termcmd[]        = { "alacritty", NULL };
@@ -73,6 +73,10 @@ static const char *clipmenucmd[]    = { "clipmenu", NULL };
 static const char *thunarcmd[]      = { "thunar", NULL };
 static const char *browsercmd[]     = { "librewolf", NULL };
 static const char *comcmd[]         = { "signal-desktop", NULL };
+static const char *kricmd[]         = { "krita", NULL };
+static const char *gimcmd[]         = { "gimp", NULL };
+static const char *calecmd[]        = { "gnome-calendar", NULL };
+static const char *officecmd[]      = { "libreoffice", NULL };
 static const char *pavucmd[]        = { "pavucontrol", NULL };
 static const char *nmtuicmd[]       = { "alacritty", "--class", "nmtui", "-e", "nmtui", NULL };
 static const char *lockcmd[]        = { "slock", NULL };
@@ -81,6 +85,7 @@ static const char *resolvecmd[]     = { "resolve", NULL };
 static const char *audaciouscmd[]   = { "audacious", NULL };
 static const char *protonvpncmd[]   = { "protonvpn-app", NULL };
 
+/* System Scripts */
 static const char *powermenu[]      = { "sh", "-c", "$HOME/.config/scripts/rofi-powermenu.sh", NULL };
 static const char *sysmenu[]        = { "sh", "-c", "$HOME/.config/scripts/sysmenu.sh", NULL };
 static const char *notifcmd[]       = { "sh", "-c", "$HOME/.config/scripts/rofi-notif.sh", NULL };
@@ -90,8 +95,9 @@ static const char *powerprof[]      = { "sh", "-c", "$HOME/.config/scripts/power
 static const char *screenshot[]     = { "sh", "-c", "mkdir -p $HOME/Pictures/Screenshots && f=$HOME/Pictures/Screenshots/scr_$(date +%s).png && maim -s \"$f\" && xclip -selection clipboard -t image/png -i \"$f\"", NULL };
 static const char *screenall[]      = { "sh", "-c", "mkdir -p $HOME/Pictures/Screenshots && f=$HOME/Pictures/Screenshots/scr_$(date +%s).png && maim \"$f\" && xclip -selection clipboard -t image/png -i \"$f\"", NULL };
 static const char *screensrc[]      = { "sh", "-c", "$HOME/.config/scripts/screen_search.sh", NULL };
-static const char *updcmd[]         = { "alacritty", "-e", "bash", "-c", "$HOME/scripts/system_update.sh", NULL };
-static const char *cleancmd[]       = { "alacritty", "-e", "bash", "-c", "$HOME/scripts/system_clean.sh", NULL };
+static const char *updcmd[]         = { "alacritty", "-e", "sh", "-c", "$HOME/.config/scripts/system_update.sh; echo 'Press [Enter] to close...'; read", NULL };
+static const char *cleancmd[]       = { "alacritty", "-e", "sh", "-c", "$HOME/.config/scripts/system_clean.sh; echo 'Press [Enter] to close...'; read", NULL };
+
 
 /* Audio and Brightness Commands */
 static const char *upvol[]   = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "+5%",     NULL };
@@ -109,13 +115,18 @@ static const Key keys[] = {
     { MODKEY,                       XK_v,      spawn,          {.v = clipmenucmd } },
     { MODKEY,                       XK_f,      spawn,          {.v = thunarcmd } },
     { MODKEY,                       XK_b,      spawn,          {.v = browsercmd } },
-    { MODKEY,                       XK_c,      spawn,          {.v = comcmd } },
+    { MODKEY,                       XK_t,      spawn,          {.v = comcmd } },
+    { MODKEY,                       XK_k,      spawn,          {.v = kricmd } },
+    { MODKEY,                       XK_g,      spawn,          {.v = gimcmd } },
+    { MODKEY,                       XK_c,      spawn,          {.v = calecmd } },
+    { MODKEY,                       XK_l,      spawn,          {.v = officecmd } },
     { MODKEY,                       XK_o,      spawn,          {.v = obscmd } },
     { MODKEY,                       XK_r,      spawn,          {.v = resolvecmd } },
     { MODKEY,                       XK_m,      spawn,          {.v = audaciouscmd } },
     { MODKEY|ShiftMask,             XK_p,      spawn,          {.v = protonvpncmd } },
     { MODKEY|ShiftMask,             XK_a,      spawn,          {.v = pavucmd } },
     { MODKEY|ShiftMask,             XK_n,      spawn,          {.v = nmtuicmd } },
+    
     /* Update & Cleanup */
     { MODKEY|ShiftMask,             XK_u,      spawn,          {.v = updcmd } },
     { MODKEY|ShiftMask,             XK_c,      spawn,          {.v = cleancmd } },

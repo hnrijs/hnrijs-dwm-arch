@@ -30,7 +30,7 @@ rofi_override="window { width: 880px; border-radius: 8px; } listview { columns: 
 # Select a picture with rofi (Sorted logically with sort -V)
 wall_selection=$(find "$wall_dir" -maxdepth 1 -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.webp" \) -exec basename {} \; | sort -V | while read -r A ; do
     echo -en "$A\0icon\x1f${cache_dir}/$A\n"
-done | rofi -dmenu -theme-str "${rofi_override}" -p "Wallpapers")
+done | rofi -normal-window -dmenu -theme-str "${rofi_override}" -p "Wallpapers")
 
 # Apply the wallpaper, update configs, and sync to LightDM
 if [[ -n "$wall_selection" ]]; then

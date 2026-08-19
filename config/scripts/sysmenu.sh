@@ -2,13 +2,13 @@
 
 options="  Audio\n  Network\n  Bluetooth\n  Monitors\n  Keyboard\n  Mouse\n  Brightness\n  Night Light\n  Notifications\n  DNS\n  Firewall\n  Configure DWM\n  System Tools"
 
-chosen="$(echo -e "$options" | rofi -dmenu -p "System Menu")"
+chosen="$(echo -e "$options" | rofi -normal-window -dmenu -p "System Menu")"
 
 case "$chosen" in
     *"Audio")
         while true; do
             audio_options="Open Pavucontrol\nVolume Up (+5%)\nVolume Down (-5%)\nMute Toggle\nBack"
-            audio_chosen="$(echo -e "$audio_options" | rofi -dmenu -p "Audio Menu")"
+            audio_chosen="$(echo -e "$audio_options" | rofi -normal-window -dmenu -p "Audio Menu")"
             
             case "$audio_chosen" in
                 "Open Pavucontrol")
@@ -37,7 +37,7 @@ case "$chosen" in
     *"Network")
         while true; do
             net_options="Open NMTUI\nEnable Network\nDisable Network\nRemove Network\nBack"
-            net_chosen="$(echo -e "$net_options" | rofi -dmenu -p "Network Menu")"
+            net_chosen="$(echo -e "$net_options" | rofi -normal-window -dmenu -p "Network Menu")"
             
             case "$net_chosen" in
                 "Open NMTUI")
@@ -74,7 +74,7 @@ case "$chosen" in
     *"Bluetooth")
         while true; do
             bt_options="Open Bluetui\nEnable Bluetooth\nDisable Bluetooth\nRemove Bluetooth\nBack"
-            bt_chosen="$(echo -e "$bt_options" | rofi -dmenu -p "Bluetooth Menu")"
+            bt_chosen="$(echo -e "$bt_options" | rofi -normal-window -dmenu -p "Bluetooth Menu")"
             
             case "$bt_chosen" in
                 "Open Bluetui")
@@ -111,7 +111,7 @@ case "$chosen" in
     *"Monitors")
         while true; do
             mon_options="Open ARandR (GUI)\nList Monitors (CLI)\nBack"
-            mon_chosen="$(echo -e "$mon_options" | rofi -dmenu -p "Monitor Menu")"
+            mon_chosen="$(echo -e "$mon_options" | rofi -normal-window -dmenu -p "Monitor Menu")"
             
             case "$mon_chosen" in
                 "Open ARandR (GUI)")
@@ -133,7 +133,7 @@ case "$chosen" in
     *"Keyboard")
         while true; do
             kbd_options="Set US Layout\nSet LV Layout\nCustom Localectl Status\nBack"
-            kbd_chosen="$(echo -e "$kbd_options" | rofi -dmenu -p "Keyboard Menu")"
+            kbd_chosen="$(echo -e "$kbd_options" | rofi -normal-window -dmenu -p "Keyboard Menu")"
             
             case "$kbd_chosen" in
                 "Set US Layout")
@@ -155,7 +155,7 @@ case "$chosen" in
     *"Mouse")
         while true; do
             mouse_options="Enable Mouse Accel\nDisable Mouse Accel\nBack"
-            mouse_chosen="$(echo -e "$mouse_options" | rofi -dmenu -p "Mouse Menu")"
+            mouse_chosen="$(echo -e "$mouse_options" | rofi -normal-window -dmenu -p "Mouse Menu")"
             
             xprofile_file="$HOME/.xprofile"
             
@@ -188,7 +188,7 @@ case "$chosen" in
     *"Brightness")
         while true; do
             bright_options="Brightness Up (+5%)\nBrightness Down (-5%)\nMax Brightness (100%)\nMin Brightness (10%)\nBack"
-            bright_chosen="$(echo -e "$bright_options" | rofi -dmenu -p "Brightness Menu")"
+            bright_chosen="$(echo -e "$bright_options" | rofi -normal-window -dmenu -p "Brightness Menu")"
             
             case "$bright_chosen" in
                 "Brightness Up (+5%)")
@@ -213,7 +213,7 @@ case "$chosen" in
     *"Night Light")
         while true; do
             nl_options="Toggle Night Light (4500K)\nReset to Daylight (6500K)\nCustom Temp (CLI)\nBack"
-            nl_chosen="$(echo -e "$nl_options" | rofi -dmenu -p "Night Light Menu")"
+            nl_chosen="$(echo -e "$nl_options" | rofi -normal-window -dmenu -p "Night Light Menu")"
             
             case "$nl_chosen" in
                 "Toggle Night Light (4500K)")
@@ -249,7 +249,7 @@ case "$chosen" in
             fi
             
             notif_options="$dnd_state\nClear All Notifications\nShow History\nBack"
-            notif_chosen="$(echo -e "$notif_options" | rofi -dmenu -p "Notifications")"
+            notif_chosen="$(echo -e "$notif_options" | rofi -normal-window -dmenu -p "Notifications")"
             
             case "$notif_chosen" in
                 "Enable Do Not Disturb")
@@ -275,7 +275,7 @@ case "$chosen" in
     *"DNS")
         while true; do
             dns_options="Set Cloudflare (1.1.1.1)\nSet Google (8.8.8.8)\nReset to DHCP (Default)\nBack"
-            dns_chosen="$(echo -e "$dns_options" | rofi -dmenu -p "DNS Menu")"
+            dns_chosen="$(echo -e "$dns_options" | rofi -normal-window -dmenu -p "DNS Menu")"
             
             case "$dns_chosen" in
                 "Set Cloudflare (1.1.1.1)")
@@ -297,7 +297,7 @@ case "$chosen" in
     *"Firewall")
         while true; do
             fw_options="Edit Custom Config\nEnable UFW\nDisable UFW\nRemove UFW\nBack"
-            fw_chosen="$(echo -e "$fw_options" | rofi -dmenu -p "Firewall Menu")"
+            fw_chosen="$(echo -e "$fw_options" | rofi -normal-window -dmenu -p "Firewall Menu")"
             
             case "$fw_chosen" in
                 "Edit Custom Config")
@@ -326,7 +326,7 @@ case "$chosen" in
     *"Configure DWM")
         while true; do
             dwm_options="Configure DWM (config.h)\nConfigure Slock (config.h)\nConfigure Slstatus (config.h)\nConfigure Startup (.xprofile)\nCompile DWM\nCompile Slock\nCompile Slstatus\nBack"
-            dwm_chosen="$(echo -e "$dwm_options" | rofi -dmenu -p "DWM Menu")"
+            dwm_chosen="$(echo -e "$dwm_options" | rofi -normal-window -dmenu -p "DWM Menu")"
             
             case "$dwm_chosen" in
                 "Configure DWM (config.h)")
@@ -360,13 +360,13 @@ case "$chosen" in
     *"System Tools")
         while true; do
             tools_options="Take Screenshot\nSystem Clean\nSystem Update\nTask Manager\nReload Slstatus\nReload Dunst\nToggle Idle Mode\nChange Power Plan\nBack"
-            tools_chosen="$(echo -e "$tools_options" | rofi -dmenu -p "System Tools")"
+            tools_chosen="$(echo -e "$tools_options" | rofi -normal-window -dmenu -p "System Tools")"
             
             case "$tools_chosen" in
                 "Take Screenshot")
                     while true; do
                         shot_options="Select Area (Copy to Clipboard)\nSelect Area (Save to Pictures)\nFull Screen (Copy to Clipboard)\nFull Screen (Save to Pictures)\nBack"
-                        shot_chosen="$(echo -e "$shot_options" | rofi -dmenu -p "Screenshot Menu")"
+                        shot_chosen="$(echo -e "$shot_options" | rofi -normal-window -dmenu -p "Screenshot Menu")"
                         
                         case "$shot_chosen" in
                             "Select Area (Copy to Clipboard)")
@@ -423,7 +423,7 @@ case "$chosen" in
                 "Change Power Plan")
                     while true; do
                         power_options="Power Save\nBalanced\nPerformance\nBack"
-                        power_chosen="$(echo -e "$power_options" | rofi -dmenu -p "Power Profile")"
+                        power_chosen="$(echo -e "$power_options" | rofi -normal-window -dmenu -p "Power Profile")"
                         
                         case "$power_chosen" in
                             "Power Save")

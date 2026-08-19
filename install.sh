@@ -144,14 +144,13 @@ if [ -f "$HOME/.Xresources" ]; then
     xrdb -merge "$HOME/.Xresources"
 fi
 
-
+$HOME/.config/scripts/screen.sh &
 xidlehook --not-when-audio --not-when-fullscreen --timer 60 "slock" "" --timer 60 "xset dpms force off" "" --timer 180 "systemctl suspend" "" &
 xwallpaper --zoom "$HOME/Pictures/Wallpapers/main.png" &
 slstatus &
 dunst &
 clipmenud &
 picom &
-$HOME/.config/scripts/screen.sh &
 $HOME/.config/scripts/notifier.sh &
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 EOF

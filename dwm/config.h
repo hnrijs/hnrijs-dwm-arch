@@ -39,6 +39,7 @@ static const Rule rules[] = {
     { "Gimp",      NULL,     NULL,           0,         1,          0,           0,        -1 },
     { "Firefox",   NULL,     NULL,           1 << 8,    0,          0,          -1,        -1 },
     { "Alacritty", NULL,     NULL,           0,         0,          1,           0,        -1 }, /* terminal */
+    { "Rofi",      NULL,     NULL,           0,         1,          0,           0,        -1 },
     { NULL,        NULL,     "Event Tester", 0,         0,          0,           1,        -1 }, /* xev does not swallow */
 };
 
@@ -68,7 +69,7 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0";
 static const char *dmenucmd[]       = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_bg, "-nf", col_fg, "-sb", col_bg, "-sf", col_fg_active, NULL };
 static const char *termcmd[]        = { "alacritty", NULL };
-static const char *roficmd[]        = { "rofi", "-show", "drun", NULL };
+static const char *roficmd[]        = { "rofi", "-show", "drun", "-normal-window", NULL };
 static const char *clipmenucmd[]    = { "clipmenu", NULL };
 static const char *thunarcmd[]      = { "thunar", NULL };
 static const char *browsercmd[]     = { "librewolf", NULL };

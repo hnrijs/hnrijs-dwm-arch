@@ -95,6 +95,7 @@ static const char *powerprof[]      = { "sh", "-c", "$HOME/.config/scripts/power
 static const char *screenshot[]     = { "sh", "-c", "mkdir -p $HOME/Pictures/Screenshots && f=$HOME/Pictures/Screenshots/scr_$(date +%s).png && maim -s \"$f\" && xclip -selection clipboard -t image/png -i \"$f\"", NULL };
 static const char *screenall[]      = { "sh", "-c", "mkdir -p $HOME/Pictures/Screenshots && f=$HOME/Pictures/Screenshots/scr_$(date +%s).png && maim \"$f\" && xclip -selection clipboard -t image/png -i \"$f\"", NULL };
 static const char *screensrc[]      = { "sh", "-c", "$HOME/.config/scripts/screen_search.sh", NULL };
+static const char *colorpicker[]    = { "xcolor", "-s", "clipboard", NULL };
 static const char *updcmd[]         = { "alacritty", "-e", "sh", "-c", "$HOME/.config/scripts/system_update.sh; echo 'Press [Enter] to close...'; read", NULL };
 static const char *cleancmd[]       = { "alacritty", "-e", "sh", "-c", "$HOME/.config/scripts/system_clean.sh; echo 'Press [Enter] to close...'; read", NULL };
 
@@ -144,6 +145,8 @@ static const Key keys[] = {
     { MODKEY|ShiftMask,             XK_s,      spawn,          {.v = screenshot } },
     { MODKEY|ShiftMask,             XK_x,      spawn,          {.v = screenall } },
     { MODKEY|ShiftMask,             XK_e,      spawn,          {.v = screensrc } },
+    { MODKEY|ShiftMask,             XK_h,      spawn,          {.v = colorpicker } },
+
 
     /* Media Keys (Volume & Brightness) */
     { 0, XF86XK_AudioRaiseVolume,              spawn,          {.v = upvol } },

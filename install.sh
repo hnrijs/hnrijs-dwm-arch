@@ -30,7 +30,7 @@ sudo pacman -S --needed --noconfirm \
     curl jq xdg-utils libnotify xorg-xset librewolf imagemagick audacious \
     clipmenu xsel xdotool tumbler ttf-dejavu ttf-font-awesome noto-fonts \
     noto-fonts-cjk gvfs udisks2 thunar-volman switcheroo xwallpaper redshift \
-    signal-desktop obs-studio krita gimp 
+    signal-desktop obs-studio krita gimp gnome-calendar
 
 # 3. Check and install yay AUR helper
 if ! command -v yay &> /dev/null; then

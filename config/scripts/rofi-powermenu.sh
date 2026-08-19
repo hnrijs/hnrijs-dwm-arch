@@ -11,7 +11,7 @@ suspend='󰤄'
 logout='󰍃'
 
 rofi_cmd() {
-    rofi -dmenu \
+    rofi -normal-window -dmenu \
         -p "  $USER" \
         -mesg "  Uptime: $uptime" \
         -theme-str "imagebox { background-image: none; background-color: black; }" \

@@ -89,6 +89,7 @@ static const char *protonvpncmd[]   = { "protonvpn-app", NULL };
 static const char *powermenu[]      = { "sh", "-c", "$HOME/.config/scripts/rofi-powermenu.sh", NULL };
 static const char *sysmenu[]        = { "sh", "-c", "$HOME/.config/scripts/sysmenu.sh", NULL };
 static const char *notifcmd[]       = { "sh", "-c", "$HOME/.config/scripts/rofi-notif.sh", NULL };
+static const char *webcmd[]         = { "sh", "-c", "$HOME/.config/scripts/rofi-web.sh", NULL };
 static const char *wallpapercmd[]   = { "sh", "-c", "$HOME/.config/scripts/wallpaper-selector.sh", NULL };
 static const char *idletoggle[]     = { "sh", "-c", "$HOME/.config/scripts/idle-toggle.sh", NULL };
 static const char *powerprof[]      = { "sh", "-c", "$HOME/.config/scripts/power_profile.sh", NULL };
@@ -98,6 +99,8 @@ static const char *screensrc[]      = { "sh", "-c", "$HOME/.config/scripts/scree
 static const char *colorpicker[]    = { "xcolor", "-s", "clipboard", NULL };
 static const char *updcmd[]         = { "alacritty", "-e", "sh", "-c", "$HOME/.config/scripts/system_update.sh; echo 'Press [Enter] to close...'; read", NULL };
 static const char *cleancmd[]       = { "alacritty", "-e", "sh", "-c", "$HOME/.config/scripts/system_clean.sh; echo 'Press [Enter] to close...'; read", NULL };
+static const char *btopcmd[]        = { "alacritty", "-e", "btop", NULL };
+
 
 
 /* Audio and Brightness Commands */
@@ -131,12 +134,15 @@ static const Key keys[] = {
     /* Update & Cleanup */
     { MODKEY|ShiftMask,             XK_u,      spawn,          {.v = updcmd } },
     { MODKEY|ShiftMask,             XK_c,      spawn,          {.v = cleancmd } },
+    { MODKEY|ShiftMask,             XK_t,      spawn,          {.v = btopcmd } },
 
     /* Scripts & Power */
     { MODKEY|ShiftMask,             XK_l,      spawn,          {.v = lockcmd } },
     { MODKEY,                       XK_Escape, spawn,          {.v = powermenu } },
     { MODKEY|ShiftMask,             XK_space,  spawn,          {.v = sysmenu } },
     { MODKEY,                       XK_n,      spawn,          {.v = notifcmd } },
+    { MODKEY,                       XK_i,      spawn,          {.v = webcmd } },
+    
     { MODKEY|ShiftMask,             XK_w,      spawn,          {.v = wallpapercmd } },
     { MODKEY|ShiftMask,             XK_i,      spawn,          {.v = idletoggle } },
     { MODKEY|ShiftMask,             XK_p,      spawn,          {.v = powerprof } },

@@ -22,9 +22,9 @@ mkdir -p "$HOME/Documents" "$HOME/Music" "$HOME/Downloads" "$HOME/Pictures/Wallp
 echo "Installing official pacman packages..."
 sudo pacman -S --needed --noconfirm \
     base-devel wget xorg-server xorg-xinit libx11 libxft libxinerama \
-    thunar rofi imv cava btop playerctl alacritty zip unzip polkit-gnome \
+    thunar rofi imv btop playerctl alacritty zip unzip polkit-gnome \
     xclip maim ttf-jetbrains-mono-nerd noto-fonts-emoji ttf-nerd-fonts-symbols \
-    gtk3 fastfetch pavucontrol nwg-look mpv brightnessctl xsettingsd nano vim \
+    gtk3 pavucontrol nwg-look mpv brightnessctl xsettingsd nano vim \
     xorg-xrandr power-profiles-daemon python-gobject arandr picom \
     lightdm lightdm-gtk-greeter materia-theme dunst xorg-xinput qalculate-gtk \
     curl jq xdg-utils libnotify xorg-xset librewolf imagemagick audacious \

@@ -45,7 +45,7 @@ fi
 
 # 4. Install AUR packages
 echo "Installing AUR packages..."
-yay -S --noconfirm xautolock xcolor
+yay -S --noconfirm xidlehook xcolor
 
 # 5. Copy configuration files (.config directory)
 echo "Copying config files to $HOME/.config/..."

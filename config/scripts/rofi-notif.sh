@@ -19,8 +19,8 @@ while true; do
         options="$dnd_state\n$clear_btn\n$close_btn\n$history"
     fi
 
-    chosen="$(echo -e "$options" | rofi -dmenu -p " Notifications")"
-
+    chosen="$(echo -e "$options" | rofi -normal-window -dmenu -p " Notifications")"
+    
     case "$chosen" in
         "$dnd_state")
             dunstctl set-paused toggle

@@ -29,7 +29,7 @@ sudo pacman -S --needed --noconfirm \
     lightdm lightdm-gtk-greeter materia-theme dunst xorg-xinput qalculate-gtk \
     curl jq xdg-utils libnotify xorg-xset librewolf imagemagick audacious \
     clipmenu xsel xdotool tumbler ttf-dejavu ttf-font-awesome noto-fonts \
-    noto-fonts-cjk gvfs udisks2 thunar-volman switcheroo xwallpaper redshift
+    noto-fonts-cjk gvfs udisks2 thunar-volman switcheroo xwallpaper redshift \
     signal-desktop obs-studio
 
 # 3. Check and install yay AUR helper

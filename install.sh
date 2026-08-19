@@ -145,6 +145,7 @@ if [ -f "$HOME/.Xresources" ]; then
 fi
 
 $HOME/.config/scripts/screen.sh &
+sleep 1
 xidlehook --not-when-audio --not-when-fullscreen --timer 60 "slock" "" --timer 60 "xset dpms force off" "" --timer 180 "systemctl suspend" "" &
 xwallpaper --zoom "$HOME/Pictures/Wallpapers/main.png" &
 slstatus &

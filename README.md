@@ -33,6 +33,7 @@
 ## Installation
 
 To install this dwm setup automatically, clone the repository, make the installer executable, run it, and then reboot your system.
+You can remove some apps from install.sh.
 
 ```bash
 # 1. Clone the repository and enter the directory

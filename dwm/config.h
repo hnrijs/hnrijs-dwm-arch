@@ -94,6 +94,7 @@ static const char *webcmd[]         = { "sh", "-c", "$HOME/.config/scripts/rofi-
 static const char *wallpapercmd[]   = { "sh", "-c", "$HOME/.config/scripts/wallpaper-selector.sh", NULL };
 static const char *idletoggle[]     = { "sh", "-c", "$HOME/.config/scripts/idle-toggle.sh", NULL };
 static const char *powerprof[]      = { "sh", "-c", "$HOME/.config/scripts/power_profile.sh", NULL };
+static const char *dndcmd[]         = { "sh", "-c", "$HOME/.config/scripts/dnd-toggle.sh", NULL };
 static const char *screenshot[]     = { "sh", "-c", "mkdir -p $HOME/Pictures/Screenshots && f=$HOME/Pictures/Screenshots/scr_$(date +%s).png && maim -s \"$f\" && xclip -selection clipboard -t image/png -i \"$f\"", NULL };
 static const char *screenall[]      = { "sh", "-c", "mkdir -p $HOME/Pictures/Screenshots && f=$HOME/Pictures/Screenshots/scr_$(date +%s).png && maim \"$f\" && xclip -selection clipboard -t image/png -i \"$f\"", NULL };
 static const char *screensrc[]      = { "sh", "-c", "$HOME/.config/scripts/screen_search.sh", NULL };
@@ -147,6 +148,7 @@ static const Key keys[] = {
     { MODKEY|ShiftMask,             XK_w,      spawn,          {.v = wallpapercmd } },
     { MODKEY|ShiftMask,             XK_i,      spawn,          {.v = idletoggle } },
     { MODKEY|ShiftMask,             XK_p,      spawn,          {.v = powerprof } },
+    { MODKEY|ShiftMask,             XK_n,      spawn,          {.v = dndcmd } },
     { MODKEY|ShiftMask,             XK_s,      spawn,          {.v = screenshot } },
     { MODKEY|ShiftMask,             XK_x,      spawn,          {.v = screenall } },
     { MODKEY|ShiftMask,             XK_e,      spawn,          {.v = screensrc } },
@@ -216,3 +218,4 @@ static const Button buttons[] = {
     { ClkTagBar,            MODKEY,         Button1,        tag,            {0} },
     { ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
 };
+static const unsigned int snap      = 32;

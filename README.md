@@ -66,10 +66,11 @@ Here are the essential shortcuts for managing this desktop environment (`$mod` r
 | :--- | :--- |
 | `$mod + Shift + L` | Lock Session |
 | `$mod + Shift + P` | Toggle Power Profiles (S / B / P) |
-| `$mod + Shift + I` | Toggle Idle (I / C) |
+| `$mod + Shift + I` | Toggle Idle / Caffeine |
 | `$mod + Shift + S` | Take Screenshot (Select area to Clipboard) |
 | `$mod + Shift + X` | Take Screenshot (All Screens) |
 | `$mod + Shift + E` | Screen Search (Select area to Clipboard) |
+| `$mod + Shift + N` | Toggle Do Not Disturb |
 | `$mod + Shift + H` | Color Picker |
 | `$mod + Shift + C` | Run System Maintenance & Cleanup Script |
 | `$mod + Shift + U` | Run Full System Update (Pacman + AUR) |

@@ -109,5 +109,30 @@ dbus-monitor --system "type='signal',interface='org.freedesktop.DBus.Properties'
     fi
 done &
 
-wait
+(
+    notified_15=false
+    notified_5=false
 
+    while true; do
+        if [ -f /sys/class/power_supply/BAT0/capacity ] && [ -f /sys/class/power_supply/BAT0/status ]; then
+            bat_capacity=$(cat /sys/class/power_supply/BAT0/capacity)
+            bat_status=$(cat /sys/class/power_supply/BAT0/status)
+
+            if [ "$bat_status" = "Charging" ] || [ "$bat_status" = "Full" ]; then
+                notified_15=false
+                notified_5=false
+            elif [ "$bat_status" = "Discharging" ]; then
+                if [ "$bat_capacity" -le 5 ] && [ "$notified_5" = false ]; then
+                    notify-send -u normal "󰂎 Battery Critical!" "Only $bat_capacity% remaining."
+                    notified_5=true
+                elif [ "$bat_capacity" -le 15 ] && [ "$notified_15" = false ]; then
+                    notify-send -u normal "󰁻 Battery Low" "$bat_capacity% remaining."
+                    notified_15=true
+                fi
+            fi
+        fi
+        sleep 60
+    done
+) &
+
+wait

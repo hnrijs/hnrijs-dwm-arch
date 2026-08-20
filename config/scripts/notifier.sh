@@ -51,33 +51,53 @@ udevadm monitor --subsystem-match=backlight 2>/dev/null | grep --line-buffered "
     fi
 done &
 
-udevadm monitor --udev --property --subsystem-match=usb 2>/dev/null | while read -r line; do
-    if [[ "$line" =~ ^UDEV ]]; then
-        action=""
-        is_device=""
-        model=""
-    elif [[ "$line" == "ACTION=add" ]]; then 
-        action="add"
-    elif [[ "$line" == "ACTION=remove" ]]; then 
-        action="remove"
-    elif [[ "$line" == "DEVTYPE=usb_device" ]]; then 
-        is_device=1
-    elif [[ "$line" == ID_MODEL=* && -z "$model" ]]; then 
-        model="${line#ID_MODEL=}"
-    elif [[ "$line" == ID_MODEL_FROM_DATABASE=* ]]; then 
-        model="${line#ID_MODEL_FROM_DATABASE=}"
-    elif [[ -z "$line" ]]; then
-        if [[ -n "$action" && "$is_device" == "1" && -n "$model" ]]; then
-            model=$(echo "$model" | tr '_' ' ')
-            if [[ "$action" == "add" ]]; then
-                notify-send -u normal -t 4000 "  Device Connected" "$model"
-            elif [[ "$action" == "remove" ]]; then
-                notify-send -u normal -t 4000 "  Device Disconnected" "$model"
+(
+    declare -A usb_devices
+    for syspath in /sys/bus/usb/devices/*; do
+        if [ -e "$syspath/busnum" ]; then
+            real_path=$(realpath "$syspath")
+            devpath="${real_path#/sys}"
+            model=$(udevadm info -q property -p "$devpath" 2>/dev/null | grep -E '^(ID_MODEL_FROM_DATABASE|ID_MODEL)=' | head -n 1 | cut -d= -f2-)
+            if [ -n "$model" ]; then
+                usb_devices["$devpath"]=$(echo "$model" | tr '_' ' ')
             fi
         fi
-        action=""; is_device=""; model=""
-    fi
-done &
+    done
+
+    udevadm monitor --udev --property --subsystem-match=usb 2>/dev/null | while read -r line; do
+        if [[ "$line" =~ ^UDEV ]]; then
+            action=""
+            is_device=""
+            model=""
+            devpath=""
+        elif [[ "$line" == ACTION=* ]]; then 
+            action="${line#ACTION=}"
+        elif [[ "$line" == DEVPATH=* ]]; then
+            devpath="${line#DEVPATH=}"
+        elif [[ "$line" == DEVTYPE=usb_device ]]; then 
+            is_device=1
+        elif [[ "$line" == ID_MODEL=* && -z "$model" ]]; then 
+            model="${line#ID_MODEL=}"
+        elif [[ "$line" == ID_MODEL_FROM_DATABASE=* ]]; then 
+            model="${line#ID_MODEL_FROM_DATABASE=}"
+        elif [[ -z "$line" ]]; then
+            if [[ "$is_device" == "1" && -n "$devpath" ]]; then
+                if [[ "$action" == "add" && -n "$model" ]]; then
+                    model=$(echo "$model" | tr '_' ' ')
+                    usb_devices["$devpath"]="$model"
+                    notify-send -u normal -t 4000 "  Device Connected" "$model"
+                elif [[ "$action" == "remove" ]]; then
+                    model="${usb_devices[$devpath]}"
+                    if [[ -n "$model" ]]; then
+                        notify-send -u normal -t 4000 "  Device Disconnected" "$model"
+                        unset usb_devices["$devpath"]
+                    fi
+                fi
+            fi
+            action=""; is_device=""; model=""; devpath=""
+        fi
+    done
+) &
 
 nmcli monitor 2>/dev/null | while read -r line; do
     if [[ "$line" == *"connected to"* ]]; then

@@ -72,7 +72,7 @@ Here are the essential shortcuts for managing this desktop environment (`$mod` r
 | `$mod + Shift + E` | Screen Search (Select area to Clipboard) |
 | `$mod + Shift + N` | Toggle Do Not Disturb |
 | `$mod + Shift + H` | Color Picker |
-| `$mod + Shift + C` | Run System Maintenance & Cleanup Script |
+| `$mod + Shift + C` | Run System Cleanup Script |
 | `$mod + Shift + U` | Run Full System Update (Pacman + AUR) |
 | `$mod + Shift + Q` | Exit |
 
@@ -91,9 +91,9 @@ Here are the essential shortcuts for managing this desktop environment (`$mod` r
 | `$mod + A` | Window To Left Stack |
 | `$mod + D` | Window To Right Stack |
 | `$mod + Left / Down / Up / Right` | Change Window Focus |
-| `$mod + Shift + Left / Down / Up / Right` | Reisze Focused Window |
+| `$mod + Shift + Left / Down / Up / Right` | Resize Focused Window |
 | `$mod + Shift + Q` | Exit |
-| `$mod + Shift + B` | Toggle Bar |
+
 
 
 

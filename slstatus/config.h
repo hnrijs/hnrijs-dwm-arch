@@ -68,8 +68,10 @@ static const struct arg args[] = {
     /* function      format            argument */
     { run_command,   " 󰓅 %s ",         "powerprofilesctl get 2>/dev/null | sed 's/power-saver/S/;s/balanced/B/;s/performance/P/'" },
     { run_command,   " 󰛊 %s ",         "xset q | grep -q 'DPMS is Enabled' && echo 'I' || echo 'C'" },
+    { run_command,   "%s",             "[ -f /sys/class/power_supply/BAT0/capacity ] && echo \" 󰁹 $(cat /sys/class/power_supply/BAT0/capacity)% \" || echo \"\"" },
     { run_command,   " 󰃠 %s ",         "brightnessctl info 2>/dev/null | grep -o '[0-9]*%' | head -n 1" },
-    { run_command,   " 󰕾 %s ",         "pactl get-sink-volume @DEFAULT_SINK@ 2>/dev/null | grep -o '[0-9]*%' | head -n 1" },
+    { run_command,   "  %s ",         "pactl get-source-volume @DEFAULT_SOURCE@ 2>/dev/null | grep -o '[0-9]*%' | head -n 1" },
+    { run_command,   " 󰕾 %s ",         "pactl get-sink-volume @DEFAULT_SINK@ 2>/dev/null | grep -o '[0-9]*%' | head -n 1" }, 
     { datetime,      " 󰸗 %s ",         "%a %b %-d" },
     { datetime,      " 󰥔 %s ",         "%-l:%M %p " },
 };

@@ -79,6 +79,8 @@ Here are the essential shortcuts for managing this desktop environment (`$mod` r
 
 | Keybinding | Action |
 | :--- | :--- |
+| `$mod + [1-9]` | Switch To Workspace |
+| `$mod + Shift + [1-9]` | Move Window To Workspace |
 | `$mod + Q` | Kill Focused Window |
 | `$mod + S` | Change Layout to Tile |
 | `$mod + W` | Change Layout to Tabbed |
@@ -91,5 +93,7 @@ Here are the essential shortcuts for managing this desktop environment (`$mod` r
 | `$mod + Shift + Left / Down / Up / Right` | Reisze Focused Window |
 | `$mod + Shift + Q` | Exit |
 | `$mod + Shift + B` | Toggle Bar |
+
+
 
 

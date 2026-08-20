@@ -5,7 +5,7 @@ if pgrep -x "xidlehook" > /dev/null; then
     xset -dpms
     xset s off
     touch /tmp/caffeine
-    notify-send -u normal "Caffeine Mode" "Enabled: Screen will not turn off."
+    notify-send -u normal "Caffeine Mode" "Enabled: System will not sleep."
 else
     xset -dpms
     xset s off

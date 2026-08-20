@@ -63,27 +63,33 @@ Here are the essential shortcuts for managing this desktop environment (`$mod` r
 
 | Keybinding | Action |
 | :--- | :--- |
+| `$mod + Shift + L` | Lock Session |
+| `$mod + Shift + P` | Toggle Power Profiles (S / B / P) |
+| `$mod + Shift + I` | Toggle Idle (I / C) |
 | `$mod + Shift + S` | Take Screenshot (Select area to Clipboard) |
 | `$mod + Shift + X` | Take Screenshot (All Screens) |
 | `$mod + Shift + E` | Screen Search (Select area to Clipboard) |
+| `$mod + Shift + H` | Color Picker |
 | `$mod + Shift + C` | Run System Maintenance & Cleanup Script |
 | `$mod + Shift + U` | Run Full System Update (Pacman + AUR) |
 | `$mod + Shift + N` | Open Network Manager (nmtui) in Terminal ||
-| `$mod + Shift + L` | Lock Session |
-| `$mod + Escape` | Rofi Power Menu |
-| `$mod + Shift + P` | Toggle Power Profiles (S / B / P) |
 | `$mod + Shift + Q` | Exit |
-
-
 
 ### Window Management & Layouts
 
 | Keybinding | Action |
 | :--- | :--- |
 | `$mod + Q` | Kill Focused Window |
-| `$mod + Left / Down / Up / Right` | Change Window Focus |
-| `$mod + Shift + Left / Down / Up / Right` | Reisze Focused Window |
 | `$mod + S` | Change Layout to Tile |
 | `$mod + W` | Change Layout to Tabbed |
-| `$mod + Z` | Toggle Floating / Tiling Mode |
+| `$mod + Shift + Z` |  Change Layout to Floating |
+| `$mod + Z` | Toggle Floating  |
+| `$mod + E` | Zoom / Swap Master Window |
+| `$mod + A` | Window To Left Stack |
+| `$mod + D` | Window To Right Stack |
+| `$mod + Left / Down / Up / Right` | Change Window Focus |
+| `$mod + Shift + Left / Down / Up / Right` | Reisze Focused Window |
+| `$mod + Shift + Q` | Exit |
+| `$mod + Shift + B` | Toggle Bar |
+
 

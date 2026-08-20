@@ -79,7 +79,6 @@ static const char *gimcmd[]         = { "gimp", NULL };
 static const char *calecmd[]        = { "gnome-calendar", NULL };
 static const char *officecmd[]      = { "libreoffice", NULL };
 static const char *pavucmd[]        = { "pavucontrol", NULL };
-static const char *nmtuicmd[]       = { "alacritty", "--class", "nmtui", "-e", "nmtui", NULL };
 static const char *lockcmd[]        = { "slock", NULL };
 static const char *obscmd[]         = { "obs", NULL };
 static const char *resolvecmd[]     = { "resolve", NULL };
@@ -90,7 +89,8 @@ static const char *protonvpncmd[]   = { "protonvpn-app", NULL };
 static const char *powermenu[]      = { "sh", "-c", "$HOME/.config/scripts/rofi-powermenu.sh", NULL };
 static const char *sysmenu[]        = { "sh", "-c", "$HOME/.config/scripts/sysmenu.sh", NULL };
 static const char *notifcmd[]       = { "sh", "-c", "$HOME/.config/scripts/rofi-notif.sh", NULL };
-static const char *playercmd[]       = { "sh", "-c", "$HOME/.config/scripts/rofi-media.sh", NULL };
+static const char *playercmd[]      = { "sh", "-c", "$HOME/.config/scripts/rofi-media.sh", NULL };
+static const char *netcmd[]         = { "sh", "-c", "$HOME/.config/scripts/rofi-wifi-menu.sh", NULL };
 static const char *webcmd[]         = { "sh", "-c", "$HOME/.config/scripts/rofi-web.sh", NULL };
 static const char *wallpapercmd[]   = { "sh", "-c", "$HOME/.config/scripts/wallpaper-selector.sh", NULL };
 static const char *idletoggle[]     = { "sh", "-c", "$HOME/.config/scripts/idle-toggle.sh", NULL };
@@ -131,7 +131,7 @@ static const Key keys[] = {
     { MODKEY,                       XK_u,      spawn,          {.v = audaciouscmd } },
     { MODKEY|ShiftMask,             XK_p,      spawn,          {.v = protonvpncmd } },
     { MODKEY|ShiftMask,             XK_a,      spawn,          {.v = pavucmd } },
-    { MODKEY|ShiftMask,             XK_n,      spawn,          {.v = nmtuicmd } },
+   
     
     /* Update & Cleanup */
     { MODKEY|ShiftMask,             XK_u,      spawn,          {.v = updcmd } },
@@ -144,13 +144,11 @@ static const Key keys[] = {
     { MODKEY|ShiftMask,             XK_space,  spawn,          {.v = sysmenu } },
     { MODKEY,                       XK_n,      spawn,          {.v = notifcmd } },
     { MODKEY,                       XK_m,      spawn,          {.v = playercmd } },
+    { MODKEY|ShiftMask,             XK_n,      spawn,          {.v = netcmd } },
     { MODKEY,                       XK_i,      spawn,          {.v = webcmd } },
-    
     { MODKEY|ShiftMask,             XK_w,      spawn,          {.v = wallpapercmd } },
     { MODKEY|ShiftMask,             XK_i,      spawn,          {.v = idletoggle } },
     { MODKEY|ShiftMask,             XK_p,      spawn,          {.v = powerprof } },
-
-    /* Utilities */
     { MODKEY|ShiftMask,             XK_s,      spawn,          {.v = screenshot } },
     { MODKEY|ShiftMask,             XK_x,      spawn,          {.v = screenall } },
     { MODKEY|ShiftMask,             XK_e,      spawn,          {.v = screensrc } },

@@ -1,8 +1,7 @@
 #!/bin/bash
 
 while true; do
-    is_paused=$(dunstctl is-paused)
-    if [ "$is_paused" = "true" ]; then
+    if [ -f /tmp/dnd ]; then
         dnd_state="󰂛  Do Not Disturb: ON"
     else
         dnd_state="󰂚  Do Not Disturb: OFF"
@@ -11,7 +10,7 @@ while true; do
     clear_btn="󰎟  Clear All Notifications"
     close_btn="󰅖  Close Menu"
 
-    history=$(dunstctl history | jq -r '.data[0][] | "   \(.appname.data): \(.summary.data)"' 2>/dev/null)
+    history=$(dunstctl history 2>/dev/null | jq -r '.data[0][] | "   \(.appname.data): \(.summary.data)"' 2>/dev/null)
 
     if [ -z "$history" ]; then
         options="$dnd_state\n$clear_btn\n$close_btn\n   (Empty)"
@@ -19,20 +18,25 @@ while true; do
         options="$dnd_state\n$clear_btn\n$close_btn\n$history"
     fi
 
-    chosen="$(echo -e "$options" | rofi -normal-window -dmenu -p " Notifications")"
+    chosen="$(echo -e "$options" | rofi -normal-window -dmenu -format i -p " Notifications")"
     
     case "$chosen" in
-        "$dnd_state")
-            dunstctl set-paused toggle
+        0)
+            if [ -f /tmp/dnd ]; then
+                rm -f /tmp/dnd
+                dunstctl set-paused false
+            else
+                touch /tmp/dnd
+                dunstctl set-paused true
+            fi
+            sleep 0.1
             ;;
-        "$clear_btn")
+        1)
             dunstctl close-all
             dunstctl history-clear 2>/dev/null
+            sleep 0.1
             ;;
-        "$close_btn"|"")
-            break
-            ;;
-        *)
+        2|*)
             break
             ;;
     esac

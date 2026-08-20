@@ -25,7 +25,7 @@ window {
     width: 600px;
     border: 2px solid;
     border-color: @accent;
-    border-radius: 8px;
+    border-radius: 0px;
     background-color: @bg;
     padding: 0px;
 }
@@ -51,7 +51,7 @@ prompt {
 }
 
 entry {
-    placeholder: "Search...";
+    placeholder: "Search";
     placeholder-color: @fg-alt;
     text-color: @fg;
     background-color: transparent;
@@ -60,7 +60,7 @@ entry {
 
 listview {
     columns: 1;
-    lines: 8;
+    lines: 12;
     padding: 10px;
     spacing: 5px;
     background-color: @bg;

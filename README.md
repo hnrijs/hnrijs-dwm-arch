@@ -45,13 +45,13 @@ Here are the essential shortcuts for managing this desktop environment (`$mod` r
 | `$mod + Shift + T` | Btop |
 
 
-### Rofi
+### App Launcher
 
 | Keybinding | Action |
 | :--- | :--- |
-| `$mod + Space` | Open Rofi App Launcher |
+| `$mod + Space` | Open App Launcher |
 | `$mod + Shift + Space` | Open System Menu |
-| `$mod + Escape` | Rofi Power Menu |
+| `$mod + Escape` | Power Menu |
 | `$mod + N` | Open Notification Manager |
 | `$mod + V` | Open Dmenu Clipboard History |
 | `$mod + M` | Open Media Player |

@@ -39,7 +39,7 @@ Here are the essential shortcuts for managing this desktop environment (`$mod` r
 | `$mod + L` | Open Libre Office |
 | `$mod + O` | Open OBS Studio |
 | `$mod + R` | Open Davinci Resolve |
-| `$mod + M` | Open Audacious |
+| `$mod + U` | Open Audacious |
 | `$mod + P` | Open Proton VPN |
 | `$mod + Shift + A` | Open Pavu Control |
 | `$mod + Shift + T` | Btop |
@@ -54,6 +54,7 @@ Here are the essential shortcuts for managing this desktop environment (`$mod` r
 | `$mod + Escape` | Rofi Power Menu |
 | `$mod + N` | Open Notification Manager |
 | `$mod + V` | Open Dmenu Clipboard History |
+| `$mod + M` | Open Media Player |
 | `$mod + I` | Open Quick Web |
 | `$mod + Shift + W` | Open Wallpaper Selector |
 
@@ -72,7 +73,6 @@ Here are the essential shortcuts for managing this desktop environment (`$mod` r
 | `$mod + Shift + H` | Color Picker |
 | `$mod + Shift + C` | Run System Maintenance & Cleanup Script |
 | `$mod + Shift + U` | Run Full System Update (Pacman + AUR) |
-| `$mod + Shift + N` | Open Network Manager (nmtui) in Terminal ||
 | `$mod + Shift + Q` | Exit |
 
 ### Window Management & Layouts

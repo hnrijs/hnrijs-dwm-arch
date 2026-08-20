@@ -1,6 +1,6 @@
 #!/bin/bash
 
-options="  Audio\n  Network\n  Bluetooth\n  Monitors\n  Keyboard\n  Mouse\n  Brightness\n  Night Light\n  Notifications\n  DNS\n  Firewall\n  Configure DWM\n  System Tools"
+options="  Audio\n  Network\n  Bluetooth\n  Monitors\n  Keyboard\n  Mouse\n  Brightness\n  Night Light\n  Notifications\n  DNS\n  Firewall\n  Configure DWM"
 
 chosen="$(echo -e "$options" | rofi -normal-window -dmenu -p "System Menu")"
 
@@ -349,97 +349,6 @@ case "$chosen" in
                     ;;
                 "Compile Slstatus")
                     alacritty -e sh -c "cd $HOME/slstatus && sudo make clean install && echo 'Slstatus Compiled Successfully!' && sleep 2"
-                    ;;
-                "Back"|*)
-                    break
-                    ;;
-            esac
-        done
-        exec "$0"
-        ;;
-    *"System Tools")
-        while true; do
-            tools_options="Take Screenshot\nSystem Clean\nSystem Update\nTask Manager\nReload Slstatus\nReload Dunst\nToggle Idle Mode\nChange Power Plan\nBack"
-            tools_chosen="$(echo -e "$tools_options" | rofi -normal-window -dmenu -p "System Tools")"
-            
-            case "$tools_chosen" in
-                "Take Screenshot")
-                    while true; do
-                        shot_options="Select Area (Copy to Clipboard)\nSelect Area (Save to Pictures)\nFull Screen (Copy to Clipboard)\nFull Screen (Save to Pictures)\nBack"
-                        shot_chosen="$(echo -e "$shot_options" | rofi -normal-window -dmenu -p "Screenshot Menu")"
-                        
-                        case "$shot_chosen" in
-                            "Select Area (Copy to Clipboard)")
-                                maim -s | xclip -selection clipboard -t image/png
-                                notify-send "Screenshot Copied" "Area copied to clipboard"
-                                break 2
-                                ;;
-                            "Select Area (Save to Pictures)")
-                                maim -s "$HOME/Pictures/Screenshot_$(date +%s).png"
-                                notify-send "Screenshot Saved" "Area saved to ~/Pictures"
-                                break 2
-                                ;;
-                            "Full Screen (Copy to Clipboard)")
-                                maim | xclip -selection clipboard -t image/png
-                                notify-send "Screenshot Copied" "Full screen copied to clipboard"
-                                break 2
-                                ;;
-                            "Full Screen (Save to Pictures)")
-                                maim "$HOME/Pictures/Screenshot_$(date +%s).png"
-                                notify-send "Screenshot Saved" "Full screen saved to ~/Pictures"
-                                break 2
-                                ;;
-                            "Back"|*)
-                                break
-                                ;;
-                        esac
-                    done
-                    ;;
-                "System Clean")
-                    alacritty -e sh -c "$HOME/.config/scripts/system_clean.sh"
-                    ;;
-                "System Update")
-                    alacritty -e sh -c "$HOME/.config/scripts/system_update.sh"
-                    ;;
-                "Task Manager")
-                    if ! pacman -Q btop &>/dev/null; then
-                        alacritty -e sh -c "sudo pacman -S --noconfirm btop && btop"
-                    else
-                        alacritty -e btop
-                    fi
-                    ;;
-                "Reload Slstatus")
-                    pkill slstatus
-                    slstatus &
-                    ;;
-                "Reload Dunst")
-                    pkill dunst
-                    dunst &
-                    ;;
-                 "Toggle Idle Mode")
-                    $HOME/.config/scripts/idle-toggle.sh &
-                    break
-                    ;;
-                "Change Power Plan")
-                    while true; do
-                        power_options="Power Save\nBalanced\nPerformance\nBack"
-                        power_chosen="$(echo -e "$power_options" | rofi -normal-window -dmenu -p "Power Profile")"
-                        
-                        case "$power_chosen" in
-                            "Power Save")
-                                powerprofilesctl set power-saver
-                                ;;
-                            "Balanced")
-                                powerprofilesctl set balanced
-                                ;;
-                            "Performance")
-                                powerprofilesctl set performance
-                                ;;
-                            "Back"|*)
-                                break
-                                ;;
-                        esac
-                    done
                     ;;
                 "Back"|*)
                     break

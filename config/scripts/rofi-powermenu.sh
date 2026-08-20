@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 
-lastlogin="$(last $USER | head -n1 | tr -s ' ' | cut -d' ' -f5,6,7)"
-uptime="$(uptime -p | sed -e 's/up //g;s/ minutes/m/g;s/ hours*,/h/g')"
-
 hibernate=''
 shutdown='󰐥'
 reboot=''
@@ -12,14 +9,11 @@ logout='󰍃'
 
 rofi_cmd() {
     rofi -normal-window -dmenu \
-        -p "  $USER" \
-        -mesg "  Uptime: $uptime" \
-        -theme-str "imagebox { background-image: none; background-color: black; }" \
-        -config "$HOME/.config/rofi/rofi-powermenu-config.rasi"
+         -theme "$HOME/.config/rofi/rofi-powermenu-config.rasi"
 }
 
 run_rofi() {
-    echo -e "$lock\n$reboot\n$logout\n$suspend\n$shutdown\n$hibernate" | rofi_cmd
+    echo -e "$lock\n$logout\n$shutdown\n$reboot\n$suspend\n$hibernate" | rofi_cmd
 }
 
 run_cmd() {

@@ -2,7 +2,7 @@
 
 PLATFORMS="YouTube\nReddit\nGitHub\nGemini\nMaps\nTranslate\nWindy"
 
-INPUT=$(echo -e "$PLATFORMS" | rofi -normal-window -dmenu -p "Web Search" -i)
+INPUT=$(echo -e "$PLATFORMS" | rofi -normal-window -dmenu -p "Web" -i)
 
 [ -z "$INPUT" ] && exit 1
 

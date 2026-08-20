@@ -90,7 +90,6 @@ static const char *powermenu[]      = { "sh", "-c", "$HOME/.config/scripts/rofi-
 static const char *sysmenu[]        = { "sh", "-c", "$HOME/.config/scripts/sysmenu.sh", NULL };
 static const char *notifcmd[]       = { "sh", "-c", "$HOME/.config/scripts/rofi-notif.sh", NULL };
 static const char *playercmd[]      = { "sh", "-c", "$HOME/.config/scripts/rofi-media.sh", NULL };
-static const char *netcmd[]         = { "sh", "-c", "$HOME/.config/scripts/rofi-wifi-menu.sh", NULL };
 static const char *webcmd[]         = { "sh", "-c", "$HOME/.config/scripts/rofi-web.sh", NULL };
 static const char *wallpapercmd[]   = { "sh", "-c", "$HOME/.config/scripts/wallpaper-selector.sh", NULL };
 static const char *idletoggle[]     = { "sh", "-c", "$HOME/.config/scripts/idle-toggle.sh", NULL };
@@ -144,7 +143,6 @@ static const Key keys[] = {
     { MODKEY|ShiftMask,             XK_space,  spawn,          {.v = sysmenu } },
     { MODKEY,                       XK_n,      spawn,          {.v = notifcmd } },
     { MODKEY,                       XK_m,      spawn,          {.v = playercmd } },
-    { MODKEY|ShiftMask,             XK_n,      spawn,          {.v = netcmd } },
     { MODKEY,                       XK_i,      spawn,          {.v = webcmd } },
     { MODKEY|ShiftMask,             XK_w,      spawn,          {.v = wallpapercmd } },
     { MODKEY|ShiftMask,             XK_i,      spawn,          {.v = idletoggle } },
@@ -163,7 +161,7 @@ static const Key keys[] = {
     { 0, XF86XK_MonBrightnessDown,             spawn,          {.v = brdowncmd } },
 
     /* Window Management */
-    { MODKEY|ShiftMask,             XK_b,      togglebar,      {0} },
+   
     { MODKEY,                       XK_Right,  focusstack,     {.i = +1 } },
     { MODKEY,                       XK_Left,   focusstack,     {.i = -1 } },
     { MODKEY,                       XK_d,      incnmaster,     {.i = +1 } },

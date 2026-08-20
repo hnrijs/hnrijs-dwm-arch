@@ -36,18 +36,26 @@ case "$chosen" in
         ;;
     *"Network")
         while true; do
-            net_options="Open NMTUI\nEnable Network\nDisable Network\nRemove Network\nBack"
+            net_options="Show Networks\nEnable Network\nDisable Network\nRemove Network\nBack"
             net_chosen="$(echo -e "$net_options" | rofi -normal-window -dmenu -p "Network Menu")"
             
             case "$net_chosen" in
-                "Open NMTUI")
-                    if ! pacman -Q networkmanager &>/dev/null; then
-                        alacritty -e sh -c "sudo pacman -S --noconfirm networkmanager && sudo systemctl enable --now NetworkManager && nmtui"
+                "Show Networks")
+                    wifi_list=$(nmcli --fields "SECURITY,SSID" device wifi list | sed 1d | sed 's/  */ /g' | sed -E "s/WPA*.?\S/ /g" | sed "s/^--/ /g" | sed "s/  //g" | sed "/--/d")
+                    chosen_network=$(echo -e "Back\n$wifi_list" | uniq -u | rofi -normal-window -dmenu -i -p "Wi-Fi SSID: ")
+                    
+                    if [ -z "$chosen_network" ] || [ "$chosen_network" = "Back" ]; then
+                        continue
                     else
-                        if ! systemctl is-active --quiet NetworkManager; then
-                            alacritty -e sh -c "sudo systemctl enable --now NetworkManager && nmtui"
+                        read -r chosen_id <<< "${chosen_network:3}"
+                        saved_connections=$(nmcli -g NAME connection)
+                        if [[ $(echo "$saved_connections" | grep -w "$chosen_id") = "$chosen_id" ]]; then
+                            nmcli connection up id "$chosen_id"
                         else
-                            alacritty -e nmtui
+                            if [[ "$chosen_network" =~ "" ]]; then
+                                wifi_password=$(rofi -normal-window -dmenu -p "Password: ")
+                            fi
+                            nmcli device wifi connect "$chosen_id" password "$wifi_password"
                         fi
                     fi
                     ;;

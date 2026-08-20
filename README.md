@@ -25,13 +25,11 @@ sudo reboot
 
 Here are the essential shortcuts for managing this desktop environment (`$mod` refers to the **Super / Windows** key):
 
-### Applications & Utilities
+### Applications
 
 | Keybinding | Action |
 | :--- | :--- |
 | `$mod + Return` | Open Alacritty Terminal |
-| `$mod + Space` | Open Rofi App Launcher |
-| `$mod + V` | Open Dmenu Clipboard History (Rofi) |
 | `$mod + F` | Open Thunar File Manager |
 | `$mod + B` | Open LibreWolf |
 | `$mod + T` | Open Signal |
@@ -44,7 +42,30 @@ Here are the essential shortcuts for managing this desktop environment (`$mod` r
 | `$mod + M` | Open Audacious |
 | `$mod + P` | Open Proton VPN |
 | `$mod + Shift + A` | Open Pavu Control |
+| `$mod + Shift + T` | Task Manager (Btop) |
+
+
+### Rofi
+
+| Keybinding | Action |
+| :--- | :--- |
+| `$mod + Space` | Open Rofi App Launcher |
+| `$mod + Shift + Space` | Open System Menu |
+| `$mod + Escape` | Rofi Power Menu |
+| `$mod + N` | Open Notification Manager |
+| `$mod + V` | Open Dmenu Clipboard History |
+| `$mod + I` | Open Quick Web |
+| `$mod + Shift + W` | Open Wallpaper Selector |
+
+
+
+### Utilities
+
+| Keybinding | Action |
+| :--- | :--- |
 | `$mod + Shift + S` | Take Screenshot (Select area to Clipboard) |
+| `$mod + Shift + X` | Take Screenshot (All Screens) |
+| `$mod + Shift + E` | Screen Search (Select area to Clipboard) |
 | `$mod + Shift + C` | Run System Maintenance & Cleanup Script |
 | `$mod + Shift + U` | Run Full System Update (Pacman + AUR) |
 | `$mod + Shift + N` | Open Network Manager (nmtui) in Terminal ||
@@ -52,8 +73,8 @@ Here are the essential shortcuts for managing this desktop environment (`$mod` r
 | `$mod + Escape` | Rofi Power Menu |
 | `$mod + Shift + P` | Toggle Power Profiles (S / B / P) |
 | `$mod + Shift + Q` | Exit |
-| `$mod + Shift + T` | Task Manager (Btop) |
-| `$mod + Shift + E` | Screen Search (Select area to Clipboard) |
+
+
 
 ### Window Management & Layouts
 

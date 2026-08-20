@@ -6,7 +6,7 @@
 
 ## Installation
 
-To install this i3wm setup automatically, clone the repository, make the installer executable, run it, and then reboot your system.
+To install this dwm setup automatically, clone the repository, make the installer executable, run it, and then reboot your system.
 
 ```bash
 # 1. Clone the repository and enter the directory

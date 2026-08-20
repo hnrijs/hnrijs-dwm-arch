@@ -1,6 +1,9 @@
 # hnrijs-dwm-arch
-<img width="1919" height="1077" alt="scr_1787183978" src="https://github.com/user-attachments/assets/1801f25a-02f4-4092-a7fb-8076cda65be2" />
-<img width="1914" height="1075" alt="scr_1787184115" src="https://github.com/user-attachments/assets/73211cbc-f4e0-44b8-a557-1515f5f942fb" />
+<img width="1912" height="1080" alt="image" src="https://github.com/user-attachments/assets/5504fd8a-3262-4d97-910f-75f11e1fb797" />
+<img width="1921" height="1079" alt="scr_1787248684" src="https://github.com/user-attachments/assets/86b27343-03ff-46c5-95eb-65aba4da9064" />
+<img width="1918" height="1079" alt="image" src="https://github.com/user-attachments/assets/9667bd1a-834d-4d5b-9161-e179044936d9" />
+
+
 
 
 

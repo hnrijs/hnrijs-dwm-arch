@@ -222,12 +222,12 @@ case "$chosen" in
                     fi
                     pkill redshift
                     redshift -O 4500 &
-                    dunstify -u low "Night Light" "Enabled (4500K)"
+                    dunstify -u normal "Night Light" "Enabled (4500K)"
                     ;;
                 "Reset to Daylight (6500K)")
                     pkill redshift
                     redshift -x
-                    dunstify -u low "Night Light" "Reset to Daylight (6500K)"
+                    dunstify -u normal "Night Light" "Reset to Daylight (6500K)"
                     ;;
                 "Custom Temp (CLI)")
                     alacritty -e sh -c "echo 'Enter desired temperature (e.g., 4000): '; read temp; pkill redshift; redshift -O \$temp; echo 'Applied!'; sleep 2"
@@ -257,7 +257,7 @@ case "$chosen" in
                     ;;
                 "Disable Do Not Disturb")
                     dunstctl set-paused false
-                    dunstify -u low "Notifications" "Do Not Disturb Disabled"
+                    dunstify -u normal "Notifications" "Do Not Disturb Disabled"
                     ;;
                 "Clear All Notifications")
                     dunstctl close-all

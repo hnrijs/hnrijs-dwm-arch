@@ -4,6 +4,29 @@
 
 
 
+
+## Actually functional Dwm.
+
+## Rofi-Based Control Centers
+* **System Menu:** Manage Audio, Wi-Fi, Bluetooth, Monitors, Keyboard layouts, Mouse acceleration, Brightness, Night Light, DNS, Firewall, and DWM source files directly from a GUI.
+* **Media Player:** Visual media controller with automatic album art fetching.
+* **Notification Manager:** Control Dunst notifications, toggle Do Not Disturb, and view notification history.
+
+## Dynamic System Modes
+* **Caffeine / Idle Mode:** Instantly toggle between auto-lock/sleep (via `xidlehook` locking at 1m, sleeping at 5m) and awake mode, synced with a dynamic status bar indicator.
+* **Power Profiles:** Cycle between Power-Saver, Balanced, and Performance modes.
+* **Do Not Disturb:** Quickly silence system-wide notifications with a dedicated keybind.
+
+## Integrated Utilities
+* **Advanced Screenshots & Lens:** Select areas to copy to the clipboard or perform a reverse image Screen Search (Google Lens equivalent).
+* **Color Picker:** Grab any hex color from your screen directly to your clipboard.
+* **Clipboard History:** Never lose copied text with integrated `clipmenu`.
+* **Maintenance Scripts:** Built-in tools for system updates, cache cleaning, and dynamic wallpaper management.
+
+## Dynamic Status Bar (`slstatus`)
+* Custom dynamic icons reflecting current system states: DND status, current power profile, caffeine status, battery, volume, brightness, and date/time.
+
+
 ## Installation
 
 To install this dwm setup automatically, clone the repository, make the installer executable, run it, and then reboot your system.

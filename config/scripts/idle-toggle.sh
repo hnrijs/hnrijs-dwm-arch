@@ -5,7 +5,7 @@ if pgrep -x "xidlehook" > /dev/null; then
     xset -dpms
     xset s off
     touch /tmp/caffeine
-    notify-send -u normal "Caffeine Mode" "Enabled: System will not sleep."
+    notify-send -u normal "Caffeine Mode" "Enabled: System Will Stay Awake."
 else
     xset -dpms
     xset s off
@@ -17,3 +17,4 @@ else
       --timer 240 "systemctl suspend" "" &
     notify-send -u normal "Idle Mode" "Enabled: Lock (1m) -> Sleep (5m)."
 fi
+

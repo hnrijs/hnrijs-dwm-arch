@@ -17,8 +17,7 @@ window {
     location: center;
     anchor: center;
     fullscreen: false;
-    width: 500px;
-    height: 360px;
+    width: 350px;
     background-color: @bg;
     border: 1px solid;
     border-color: #ffffff33;
@@ -26,13 +25,20 @@ window {
 }
 
 mainbox {
-    spacing: 20px;
+    spacing: 15px;
     orientation: vertical;
-    children: [ "top-message", "middle-wrapper", "listview" ];
+    children: [ "album-art", "top-message", "custom-text-box", "listview" ];
+}
+
+album-art {
+    padding: 155px 0px;
+    background-color: @bg-alt;
+    background-image: url("~/.config/rofi/nowplaying/album_art.png", width);                                  
+    expand: false; 
 }
 
 top-message {
-    padding: 0px;
+    padding: 5px 0px 0px 0px;
     children: [ "textbox-msg" ];
     expand: false;
 }
@@ -42,28 +48,14 @@ textbox-msg {
     horizontal-align: 0.5;
     vertical-align: 0.5;
     str: "  Now Playing"; 
-    font: "JetBrains Mono Bold 16";
-}
-
-middle-wrapper {
-    orientation: horizontal;
-    spacing: 20px;
-    expand: true; 
-    children: [ "album-art", "custom-text-box" ];
-}
-
-album-art {
-    width: 170px; 
-    height: 170px; 
-    background-color: @bg-alt;
-    background-image: url("~/.config/rofi/nowplaying/album_art.png", height);                                  
-    expand: false; 
+    text-color: #aaaaaa;
+    font: "JetBrains Mono 10";
 }
 
 custom-text-box {
-    expand: true;
-    padding: 20px;
-    background-color: @bg-alt;
+    expand: false;
+    padding: 0px 0px 10px 0px;
+    background-color: transparent;
     children: [ "textbox-custom" ];
 }
 
@@ -102,4 +94,3 @@ element-text {
     horizontal-align: 0.5;
     font: "JetBrains Mono 14";
 }
-

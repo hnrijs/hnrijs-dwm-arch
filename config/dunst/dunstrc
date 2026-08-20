@@ -28,7 +28,7 @@
     sort = yes
     
     # Modern look
-    corner_radius = 8
+    corner_radius = 0
     gap_size = 6
 
     font = JetBrainsMono Nerd Font 10

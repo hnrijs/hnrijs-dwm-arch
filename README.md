@@ -42,7 +42,7 @@ Here are the essential shortcuts for managing this desktop environment (`$mod` r
 | `$mod + M` | Open Audacious |
 | `$mod + P` | Open Proton VPN |
 | `$mod + Shift + A` | Open Pavu Control |
-| `$mod + Shift + T` | Task Manager (Btop) |
+| `$mod + Shift + T` | Btop |
 
 
 ### Rofi

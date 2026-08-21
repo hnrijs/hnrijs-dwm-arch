@@ -10,8 +10,8 @@ configuration {
 }
 
 * {
-    bg: #000000B3;
-    bg-alt: #ffffff1A;
+    bg: #000000;
+    bg-alt: #1a1a1a;
     fg: #FFFFFF;
     fg-alt: #999999;
     accent: #FFFFFF;
@@ -21,7 +21,7 @@ configuration {
 }
 
 window {
-    width: 600px;
+    width: 450px;
     border: 2px solid;
     border-color: @accent;
     background-color: @bg;
@@ -37,7 +37,7 @@ inputbar {
     padding: 20px;
     background-color: transparent;
     border: 0 0 1px 0 solid;
-    border-color: #ffffff33;
+    border-color: #333333;
     children: [ prompt, entry ];
 }
 

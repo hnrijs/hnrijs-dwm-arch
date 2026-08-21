@@ -65,6 +65,9 @@ static const char unknown_str[] = "n/a";
  * wifi_perc           WiFi signal in percent          interface name (wlan0)
  */
 static const struct arg args[] = {
-	/* function format          argument */
-	{ datetime, "%s",           "%F %T" },
+    { run_command,   " %s ",          "[ -f /tmp/dnd ] && echo '󰂛' || echo '󰂚'" },
+    { run_command,   " %s ",          "powerprofilesctl get 2>/dev/null | sed 's/power-saver/󰌪/;s/balanced/󰾆/;s/performance/󰓅/'" },
+    { run_command,   " %s ",          "[ -f /tmp/caffeine ] && echo '󰅶' || echo '󰖔'" },
+    { datetime,      " 󰸗 %s ",        "%a %b %-d" },
+    { datetime,      " 󰥔 %s ",        "%-l:%M %p " },
 };

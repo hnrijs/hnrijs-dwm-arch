@@ -31,7 +31,7 @@ mainbox {
 }
 
 album-art {
-    padding: 155px 0px;
+    padding: 85px 0px;
     background-color: @bg-alt;
     background-image: url("~/.config/rofi/nowplaying/album_art.png", width);                                  
     expand: false; 

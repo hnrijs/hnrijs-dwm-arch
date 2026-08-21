@@ -1,8 +1,8 @@
 * {
-    background:                    #00000099;
-    background-alt:                #ffffff12;
+    background:                    #000000;
+    background-alt:                #121212;
     foreground:                    #ffffff;
-    border-color:                  #ffffff33;
+    border-color:                  #333333;
 }
 
 window {

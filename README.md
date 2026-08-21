@@ -28,7 +28,7 @@
 
 ## Integrated Utilities
 
-* **Advanced Screenshots & Lens:** Select areas to copy to the clipboard or perform a reverse image Screen Search (Google Lens equivalent).
+* **Advanced Screenshots & Lens:** Select areas to Google Lens Search.
 
 * **Color Picker:** Grab any hex color from your screen directly to your clipboard.
 

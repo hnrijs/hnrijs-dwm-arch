@@ -129,7 +129,7 @@ static const Key keys[] = {
     { MODKEY,                       XK_l,      spawn,          {.v = officecmd } },
     { MODKEY,                       XK_o,      spawn,          {.v = obscmd } },
     { MODKEY,                       XK_r,      spawn,          {.v = resolvecmd } },
-    { MODKEY,                       XK_u,      spawn,          {.v = audaciouscmd } },
+    { MODKEY,                       XK_m,      spawn,          {.v = audaciouscmd } },
     { MODKEY|ShiftMask,             XK_p,      spawn,          {.v = protonvpncmd } },
     { MODKEY|ShiftMask,             XK_a,      spawn,          {.v = pavucmd } },
    
@@ -144,7 +144,7 @@ static const Key keys[] = {
     { MODKEY,                       XK_Escape, spawn,          {.v = powermenu } },
     { MODKEY|ShiftMask,             XK_space,  spawn,          {.v = sysmenu } },
     { MODKEY,                       XK_n,      spawn,          {.v = notifcmd } },
-    { MODKEY,                       XK_m,      spawn,          {.v = playercmd } },
+    { MODKEY|ShiftMask,             XK_m,      spawn,          {.v = playercmd } },
     { MODKEY|ShiftMask,             XK_b,      spawn,          {.v = webcmd } },
     { MODKEY|ShiftMask,             XK_w,      spawn,          {.v = wallpapercmd } },
     { MODKEY|ShiftMask,             XK_i,      spawn,          {.v = idletoggle } },

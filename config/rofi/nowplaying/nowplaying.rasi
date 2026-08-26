@@ -3,10 +3,10 @@ configuration {
 }
 
 * {
-    bg: #00000099;
-    bg-alt: #ffffff12;
-    fg: #FFFFFF;
-    accent: #FFFFFF;
+    bg: #1e1e2ecc;
+    bg-alt: #31324488;
+    fg: #cdd6f4;
+    accent: #89b4fa;
     
     background-color: transparent;
     text-color: @fg;
@@ -20,7 +20,7 @@ window {
     width: 350px;
     background-color: @bg;
     border: 1px solid;
-    border-color: #ffffff33;
+    border-color: #45475a88;
     padding: 20px;
 }
 
@@ -48,7 +48,7 @@ textbox-msg {
     horizontal-align: 0.5;
     vertical-align: 0.5;
     str: "  Now Playing"; 
-    text-color: #aaaaaa;
+    text-color: #a6adc8;
     font: "JetBrains Mono 10";
 }
 
@@ -85,7 +85,7 @@ element {
 
 element selected {
     background-color: @accent;
-    text-color: #000000;
+    text-color: #11111b;
 }
 
 element-text {

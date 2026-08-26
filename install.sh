@@ -133,12 +133,12 @@ fi
 
 $HOME/.config/scripts/screen.sh &
 sleep 1
-xidlehook --not-when-audio --not-when-fullscreen --timer 60 "slock" "" --timer 240 "systemctl suspend" "" &
 xwallpaper --zoom "$HOME/Pictures/Wallpapers/main.png" &
 slstatus &
 dunst &
 clipmenud &
 picom &
+$HOME/.config/scripts/idle-toggle.sh &
 $HOME/.config/scripts/notifier.sh &
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 EOF
@@ -187,7 +187,7 @@ alias uslock='cd "$HOME/slock" && sudo make clean install'
 alias uslstatus='cd "$HOME/slstatus" && sudo make clean install'
 EOF
 
-# 17. Fix Micro text editor default terminal
+# 17. Default Term
 echo "Setting Alacritty as default terminal for external apps..."
 sudo ln -sf /usr/bin/alacritty /usr/bin/xterm
 

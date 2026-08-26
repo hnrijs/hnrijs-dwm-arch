@@ -30,7 +30,8 @@ sudo pacman -S --needed --noconfirm \
     curl jq xdg-utils libnotify xorg-xset librewolf imagemagick audacious \
     clipmenu xsel xdotool tumbler ttf-dejavu ttf-font-awesome noto-fonts \
     noto-fonts-cjk gvfs udisks2 thunar-volman switcheroo xwallpaper redshift \
-    signal-desktop obs-studio krita gimp gnome-calendar proton-vpn-gtk-app 
+    signal-desktop obs-studio krita gimp gnome-calendar proton-vpn-gtk-app \
+    xcolor 
 
 # 3. Check and install yay AUR helper
 if ! command -v yay &> /dev/null; then
@@ -45,7 +46,7 @@ fi
 
 # 4. Install AUR packages
 echo "Installing AUR packages..."
-yay -S --noconfirm xidlehook xcolor catppuccin-gtk-theme-mocha
+yay -S --noconfirm xidlehook
 
 # 5. Copy configuration files (.config directory)
 echo "Copying config files to $HOME/.config/..."

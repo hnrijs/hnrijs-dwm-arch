@@ -71,6 +71,7 @@ Here are the essential shortcuts for managing this desktop environment (`$mod` r
 | :--- | :--- |
 | `$mod + Return` | Open Alacritty Terminal |
 | `$mod + F` | Open Thunar File Manager |
+| `$mod + X` | Open NeoVim / LazyVim |
 | `$mod + B` | Open LibreWolf |
 | `$mod + T` | Open Signal |
 | `$mod + K` | Open Krita |

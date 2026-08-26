@@ -95,7 +95,7 @@ Here are the essential shortcuts for managing this desktop environment (`$mod` r
 | `$mod + N` | Open Notification Manager |
 | `$mod + V` | Open Dmenu Clipboard History |
 | `$mod + M` | Open Media Player |
-| `$mod + I` | Open Quick Web |
+| `$mod + Shift + B` | Open Quick Web |
 | `$mod + Shift + W` | Open Wallpaper Selector |
 
 

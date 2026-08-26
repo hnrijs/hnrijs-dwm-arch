@@ -4,7 +4,7 @@
 /* appearance */
 static const unsigned int borderpx  = 2;
 static const unsigned int snap      = 32;
-static const unsigned int refreshrate = 120;
+static const unsigned int refreshrate = 280;
 static const int showbar            = 1;
 static const int topbar             = 1;
 static const unsigned int gappih    = 5;       /* horiz inner gap between windows */

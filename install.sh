@@ -31,22 +31,8 @@ sudo pacman -S --needed --noconfirm \
     clipmenu xsel xdotool tumbler ttf-dejavu ttf-font-awesome noto-fonts \
     noto-fonts-cjk gvfs udisks2 thunar-volman switcheroo xwallpaper redshift \
     signal-desktop obs-studio krita gimp gnome-calendar proton-vpn-gtk-app \
-    xcolor 
+    xcolor less xprintidle
 
-# 3. Check and install yay AUR helper
-if ! command -v yay &> /dev/null; then
-    echo "Installing yay AUR helper..."
-    mkdir -p /tmp/yay-build
-    git clone https://aur.archlinux.org/yay.git /tmp/yay-build/yay
-    cd /tmp/yay-build/yay
-    makepkg -si --noconfirm
-    cd -
-    rm -rf /tmp/yay-build
-fi
-
-# 4. Install AUR packages
-echo "Installing AUR packages..."
-yay -S --noconfirm xidlehook
 
 # 5. Copy configuration files (.config directory)
 echo "Copying config files to $HOME/.config/..."

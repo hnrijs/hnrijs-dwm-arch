@@ -21,15 +21,16 @@ static const int showsystray        = 1;        /* 0 means no systray */
 static const char *fonts[]          = { "JetBrainsMono Nerd Font:size=12" };
 static const char dmenufont[]       = "JetBrainsMono Nerd Font:size=12";
 
-static const char col_bg[]          = "#000000";
-static const char col_fg[]          = "#888888";
-static const char col_fg_active[]   = "#FFFFFF";
+static const char col_bg[]          = "#1e1e2e"; // Mocha Base (Dark background)
+static const char col_fg[]          = "#6c7086"; // Mocha Overlay0 (Inactive text)
+static const char col_fg_active[]   = "#cdd6f4"; // Mocha Text (Active foreground)
 
 static const char *colors[][3]      = {
-    /*               fg         bg         border   */
-    [SchemeNorm] = { col_fg,    col_bg,     "#333333" },
-    [SchemeSel]  = { col_fg_active, col_bg, "#FFFFFF" },
+    /*               fg             bg          border   */
+    [SchemeNorm] = { col_fg,        col_bg,     "#313244" }, // Surface1 inactive border
+    [SchemeSel]  = { col_fg_active, col_bg,     "#89b4fa" }, // Mocha Blue active border
 };
+
 
 /* tagging */
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };

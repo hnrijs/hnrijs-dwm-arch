@@ -26,11 +26,11 @@ sudo pacman -S --needed --noconfirm \
     xclip maim ttf-jetbrains-mono-nerd noto-fonts-emoji ttf-nerd-fonts-symbols \
     gtk3 pavucontrol nwg-look mpv brightnessctl xsettingsd nano vim \
     xorg-xrandr power-profiles-daemon python-gobject arandr picom \
-    lightdm lightdm-gtk-greeter materia-theme dunst xorg-xinput qalculate-gtk \
+    lightdm lightdm-gtk-greeter dunst xorg-xinput qalculate-gtk \
     curl jq xdg-utils libnotify xorg-xset librewolf imagemagick audacious \
     clipmenu xsel xdotool tumbler ttf-dejavu ttf-font-awesome noto-fonts \
     noto-fonts-cjk gvfs udisks2 thunar-volman switcheroo xwallpaper redshift \
-    signal-desktop obs-studio krita gimp gnome-calendar
+    signal-desktop obs-studio krita gimp gnome-calendar proton-vpn-gtk-app 
 
 # 3. Check and install yay AUR helper
 if ! command -v yay &> /dev/null; then
@@ -45,7 +45,7 @@ fi
 
 # 4. Install AUR packages
 echo "Installing AUR packages..."
-yay -S --noconfirm xidlehook xcolor
+yay -S --noconfirm xidlehook xcolor catppuccin-gtk-theme-mocha
 
 # 5. Copy configuration files (.config directory)
 echo "Copying config files to $HOME/.config/..."
@@ -126,7 +126,7 @@ sudo chmod 666 /usr/share/pixmaps/main-wallpaper.png
 sudo bash -c 'cat << EOF > /etc/lightdm/lightdm-gtk-greeter.conf
 [greeter]
 background = /usr/share/pixmaps/main-wallpaper.png
-theme-name = Materia-dark
+theme-name = catppuccin-mocha-blue-standard+default
 icon-theme-name = Adwaita
 font-name = JetBrainsMono Nerd Font 11
 EOF'

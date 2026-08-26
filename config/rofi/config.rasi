@@ -1,7 +1,6 @@
 configuration {
     font: "JetBrainsMono Nerd Font 12";
     show-icons: true;
-    icon-theme: "Papirus-Dark";
     display-drun: " ";
     display-run: " ";
     display-window: " ";
@@ -67,7 +66,7 @@ listview {
 
 element {
     padding: 12px;
-    border-radius: 6px;
+    border-radius: 0px;
     background-color: transparent;
     text-color: @fg-alt;
 }

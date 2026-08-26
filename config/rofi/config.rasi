@@ -1,7 +1,7 @@
 configuration {
     font: "JetBrainsMono Nerd Font 12";
     show-icons: true;
-    icon-theme: "Adwaita";
+    icon-theme: "Papirus-Dark";
     display-drun: " ";
     display-run: " ";
     display-window: " ";
@@ -10,11 +10,11 @@ configuration {
 }
 
 * {
-    bg: #000000;
-    bg-alt: #1a1a1a;
-    fg: #FFFFFF;
-    fg-alt: #999999;
-    accent: #FFFFFF;
+    bg: #1e1e2e;
+    bg-alt: #313244;
+    fg: #cdd6f4;
+    fg-alt: #a6adc8;
+    accent: #89b4fa;
     
     background-color: transparent;
     text-color: @fg;
@@ -37,7 +37,7 @@ inputbar {
     padding: 20px;
     background-color: transparent;
     border: 0 0 1px 0 solid;
-    border-color: #333333;
+    border-color: #45475a;
     children: [ prompt, entry ];
 }
 

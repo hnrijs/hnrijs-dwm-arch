@@ -33,6 +33,14 @@ sudo pacman -S --needed --noconfirm \
     signal-desktop obs-studio krita gimp gnome-calendar proton-vpn-gtk-app \
     xcolor less xprintidle
 
+# Copy GTK themes to system directory
+echo "Installing GTK themes..."
+if [ -d "$SCRIPT_DIR/theme" ]; then
+    sudo mkdir -p /usr/share/themes
+    sudo cp -r "$SCRIPT_DIR/theme/"* /usr/share/themes/
+else
+    echo "Warning: No theme folder found in repository!"
+fi
 
 # 5. Copy configuration files (.config directory)
 echo "Copying config files to $HOME/.config/..."

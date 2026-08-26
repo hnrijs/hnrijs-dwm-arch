@@ -26,12 +26,12 @@ sudo pacman -S --needed --noconfirm \
     xclip maim ttf-jetbrains-mono-nerd noto-fonts-emoji ttf-nerd-fonts-symbols \
     gtk3 pavucontrol nwg-look mpv brightnessctl xsettingsd nano vim \
     xorg-xrandr power-profiles-daemon python-gobject arandr picom \
-    lightdm lightdm-gtk-greeter dunst xorg-xinput qalculate-gtk \
+    lightdm lightdm-gtk-greeter dunst xorg-xinput qalculate-gtk aria2 \
     curl jq xdg-utils libnotify xorg-xset librewolf imagemagick audacious \
     clipmenu xsel xdotool ttf-dejavu ttf-font-awesome noto-fonts monolith \
     noto-fonts-cjk gvfs udisks2 thunar-volman switcheroo xwallpaper redshift \
     signal-desktop obs-studio krita gimp gnome-calendar proton-vpn-gtk-app \
-    xcolor less xprintidle neovim ripgrep fd lazygit tumbler fastfetch yt-dlp
+    xcolor less xprintidle neovim ripgrep fd lazygit tumbler fastfetch yt-dlp 
 
 # Copy GTK themes to system directory
 echo "Installing GTK themes..."

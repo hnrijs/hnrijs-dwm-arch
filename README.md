@@ -9,7 +9,7 @@
 
 
 
-## Actually functional Dwm.
+## Actually Functional Dwm.
 
 ## Rofi-Based Control Centers
 
@@ -21,7 +21,7 @@
 
 ## Dynamic System Modes
 
-* **Caffeine / Idle Mode:** Instantly toggle between auto-lock/sleep (via `xidlehook` locking at 1m, sleeping at 5m) and awake mode, synced with a dynamic status bar indicator.
+* **Caffeine / Idle Mode:** Instantly toggle between auto-lock/sleep (via `xprintidle` locking at 1m, sleeping at 5m) and awake mode, synced with a dynamic status bar indicator.
 
 * **Power Profiles:** Cycle between Power-Saver, Balanced, and Performance modes.
 

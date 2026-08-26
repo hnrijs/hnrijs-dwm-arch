@@ -31,7 +31,7 @@ sudo pacman -S --needed --noconfirm \
     clipmenu xsel xdotool ttf-dejavu ttf-font-awesome noto-fonts \
     noto-fonts-cjk gvfs udisks2 thunar-volman switcheroo xwallpaper redshift \
     signal-desktop obs-studio krita gimp gnome-calendar proton-vpn-gtk-app \
-    xcolor less xprintidle
+    xcolor less xprintidle neovim ripgrep fd lazygit
 
 # Copy GTK themes to system directory
 echo "Installing GTK themes..."

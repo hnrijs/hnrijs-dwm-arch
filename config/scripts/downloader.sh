@@ -1,6 +1,6 @@
 #!/bin/bash
 
-CONFIG_FILE="$HOME/.config/rofi-downloader.conf"
+CONFIG_FILE="$HOME/.config/rofi/rofi-downloader.conf"
 DEFAULT_DIR="$HOME/Downloads"
 
 if [ -f "$CONFIG_FILE" ]; then

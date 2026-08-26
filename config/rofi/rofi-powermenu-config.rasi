@@ -1,8 +1,9 @@
 * {
-    background:                    #000000;
-    background-alt:                #121212;
-    foreground:                    #ffffff;
-    border-color:                  #333333;
+    background:                    #1e1e2e;
+    background-alt:                #252538;
+    foreground:                    #cdd6f4;
+    border-color:                  #45475a;
+    accent:                        #89b4fa;
 }
 
 window {
@@ -13,7 +14,7 @@ window {
     width:                         450px;
     padding:                       25px;
     border:                        1px solid;
-    border-color:                  @border-color;
+    border-color:                  @accent;
     background-color:              @background;
 }
 
@@ -57,6 +58,6 @@ element alternate.normal {
 
 element selected.normal,
 element selected.active {
-    background-color:              @foreground;
-    text-color:                    #000000;
+    background-color:              @accent;
+    text-color:                    #11111b;
 }

@@ -26,7 +26,7 @@ sudo pacman -S --needed --noconfirm \
     xclip maim ttf-jetbrains-mono-nerd noto-fonts-emoji ttf-nerd-fonts-symbols \
     gtk3 pavucontrol nwg-look mpv brightnessctl xsettingsd nano vim \
     xorg-xrandr power-profiles-daemon python-gobject arandr picom libreoffice-fresh \
-    lightdm lightdm-gtk-greeter dunst xorg-xinput qalculate-gtk aria2 \
+    lightdm lightdm-gtk-greeter dunst xorg-xinput qalculate-gtk aria2 jdk-openjdk \
     curl jq xdg-utils libnotify xorg-xset librewolf imagemagick audacious \
     clipmenu xsel xdotool ttf-dejavu ttf-font-awesome noto-fonts monolith \
     noto-fonts-cjk gvfs udisks2 thunar-volman switcheroo xwallpaper redshift \

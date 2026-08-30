@@ -72,7 +72,7 @@ static const char *dmenucmd[]       = { "dmenu_run", "-m", dmenumon, "-fn", dmen
 static const char *termcmd[]        = { "alacritty", NULL };
 static const char *roficmd[]        = { "rofi", "-show", "drun", "-normal-window", NULL };
 static const char *clipmenucmd[]    = { "sh", "-c", "CM_LAUNCHER=rofi CM_ROFI_OPTIONS='-normal-window' clipmenu", NULL };
-static const char *nvimcmd[]        = { "nvim", NULL };
+static const char *nvimcmd[]        = { "alacritty", "-e", "nvim", NULL };
 static const char *thunarcmd[]      = { "thunar", NULL };
 static const char *browsercmd[]     = { "librewolf", NULL };
 static const char *comcmd[]         = { "signal-desktop", NULL };
@@ -92,7 +92,7 @@ static const char *powermenu[]      = { "sh", "-c", "$HOME/.config/scripts/rofi-
 static const char *sysmenu[]        = { "sh", "-c", "$HOME/.config/scripts/sysmenu.sh", NULL };
 static const char *notifcmd[]       = { "sh", "-c", "$HOME/.config/scripts/rofi-notif.sh", NULL };
 static const char *playercmd[]      = { "sh", "-c", "$HOME/.config/scripts/rofi-media.sh", NULL };
-static const char *downcmd[]        = { "sh", "-c", "$HOME/.config/scripts/downloader.sh", NULL };
+static const char *dowcmd[]         = { "sh", "-c", "$HOME/.config/scripts/downloader.sh", NULL };
 static const char *webcmd[]         = { "sh", "-c", "$HOME/.config/scripts/rofi-web.sh", NULL };
 static const char *wallpapercmd[]   = { "sh", "-c", "$HOME/.config/scripts/wallpaper-selector.sh", NULL };
 static const char *idletoggle[]     = { "sh", "-c", "$HOME/.config/scripts/idle-toggle.sh", NULL };
@@ -114,7 +114,9 @@ static const char *downvol[] = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "
 static const char *mutevol[] = { "pactl", "set-sink-mute",   "@DEFAULT_SINK@", "toggle",  NULL };
 static const char *brupcmd[] = { "brightnessctl", "set", "5%+", NULL };
 static const char *brdowncmd[] = { "brightnessctl", "set", "5%-", NULL };
-
+static const char *playpausecmd[] = { "playerctl", "play-pause", NULL };
+static const char *nextcmd[]      = { "playerctl", "next", NULL };
+static const char *prevcmd[]      = { "playerctl", "previous", NULL };
 
 
 static const Key keys[] = {
@@ -122,7 +124,7 @@ static const Key keys[] = {
     { MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
     { MODKEY,                       XK_space,  spawn,          {.v = roficmd } },
     { MODKEY,                       XK_v,      spawn,          {.v = clipmenucmd } },
-    { MODKEY,                       XK_x,      spawn,          {.v = nvimcmd } },
+    { MODKEY,                       XK_x,      spawn,          {.v = nvimcmd } },   
     { MODKEY,                       XK_f,      spawn,          {.v = thunarcmd } },
     { MODKEY,                       XK_b,      spawn,          {.v = browsercmd } },
     { MODKEY,                       XK_t,      spawn,          {.v = comcmd } },
@@ -166,6 +168,9 @@ static const Key keys[] = {
     { 0, XF86XK_AudioMute,                     spawn,          {.v = mutevol } },
     { 0, XF86XK_MonBrightnessUp,               spawn,          {.v = brupcmd } },
     { 0, XF86XK_MonBrightnessDown,             spawn,          {.v = brdowncmd } },
+    { 0, XF86XK_AudioPlay,          spawn,          {.v = playpausecmd } },
+    { 0, XF86XK_AudioNext,          spawn,          {.v = nextcmd } },
+    { 0, XF86XK_AudioPrev,          spawn,          {.v = prevcmd } },
 
     /* Window Management */
    

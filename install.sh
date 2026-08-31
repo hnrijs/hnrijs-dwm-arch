@@ -29,7 +29,7 @@ sudo pacman -S --needed --noconfirm \
     lightdm lightdm-gtk-greeter dunst xorg-xinput qalculate-gtk aria2 jdk-openjdk \
     curl jq xdg-utils libnotify xorg-xset librewolf imagemagick audacious \
     clipmenu xsel xdotool ttf-dejavu ttf-font-awesome noto-fonts monolith \
-    noto-fonts-cjk gvfs udisks2 thunar-volman switcheroo xwallpaper redshift \
+    noto-fonts-cjk gvfs gvfps-tmp udisks2 thunar-volman switcheroo xwallpaper redshift \
     signal-desktop obs-studio krita gimp gnome-calendar proton-vpn-gtk-app \
     xcolor less xprintidle neovim ripgrep fd lazygit tumbler fastfetch yt-dlp 
 

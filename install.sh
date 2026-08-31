@@ -27,7 +27,7 @@ sudo pacman -S --needed --noconfirm \
     gtk3 pavucontrol nwg-look mpv brightnessctl xsettingsd nano android-udev \
     xorg-xrandr power-profiles-daemon python-gobject arandr picom libreoffice-fresh \
     lightdm lightdm-gtk-greeter dunst xorg-xinput qalculate-gtk aria2 jdk-openjdk \
-    curl jq xdg-utils libnotify xorg-xset librewolf imagemagick audacious \
+    curl jq xdg-utils libnotify xorg-xset librewolf imagemagick audacious ffmpegthumbnailer \
     clipmenu xsel xdotool ttf-dejavu ttf-font-awesome noto-fonts monolith \
     noto-fonts-cjk gvfs gvfs-mtp udisks2 thunar-volman switcheroo xwallpaper redshift \
     signal-desktop obs-studio krita gimp gnome-calendar proton-vpn-gtk-app \

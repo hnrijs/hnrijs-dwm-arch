@@ -2,21 +2,17 @@
 
 echo "Starting System Cleanup"
 
-# Clean pacman cache keeping only the latest versions
-# Remove orphaned packages (unused dependencies)
 if [ -n "$(pacman -Qtdq)" ]; then
-    echo "1. Removing orphaned packages..."
-    sudo pacman -Rns $(pacman -Qtdq) --noconfirm
+  echo "Removing orphaned packages..."
+  sudo pacman -Rns $(pacman -Qtdq) --noconfirm
 else
-    echo "2. No orphaned packages found."
+  echo "No orphaned packages found."
 fi
 
-# Clean yay/AUR cache
-echo "3. Cleaning AUR cache..."
-yay -Scc --noconfirm
+echo "Cleaning pacman cache..."
+sudo pacman -Sc --noconfirm
 
-# Clean user thumbnail cache
-echo "4. Cleaning thumbnail cache..."
-rm -rf ~/.cache/thumbnails/*
+echo "Cleaning thumbnail cache..."
+rm -rf "$HOME/.cache/thumbnails/"*
 
 echo "Cleanup Complete!"

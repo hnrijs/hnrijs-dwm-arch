@@ -32,7 +32,7 @@ sudo pacman -S --needed --noconfirm \
     noto-fonts-cjk gvfs gvfs-mtp udisks2 thunar-volman switcheroo xwallpaper redshift \
     signal-desktop obs-studio rofi-calc libqalculate rofimoji proton-vpn-gtk-app \
     xcolor less xprintidle neovim ripgrep fd lazygit tumbler fastfetch yt-dlp \
-    fzf ncdu python-requests exiftool ripgrep speedtest-cli
+    fzf ncdu python-requests exiftool ripgrep speedtest-cli krita gimp nodejs npm
 
 # Copy GTK themes to system directory
 echo "Installing GTK themes..."

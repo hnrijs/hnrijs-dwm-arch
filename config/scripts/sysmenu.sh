@@ -1,6 +1,6 @@
 #!/bin/bash
 
-options="  Audio\n  Network\n  Bluetooth\n  Monitors\n  Keyboard\n  Brightness\n  Night Light\n  Power\n  Notifications\n  DNS\n  Firewall\n  Tools\n  Configure DWM"
+options="  Audio\n  Network\n  Bluetooth\n  Monitors\n  Keyboard\n  Brightness\n  Night Light\n  Power\n  Notifications\n  DNS\n  Firewall\n  Tools\n  Settings"
 
 chosen="$(echo -e "$options" | rofi -normal-window -dmenu -p "System Menu")"
 
@@ -19,7 +19,7 @@ case "$chosen" in
       if ! pacman -Q pavucontrol &>/dev/null; then
         alacritty -e sh -c "sudo pacman -S --noconfirm pavucontrol && pavucontrol"
       else
-        pavucontrol &
+        pavucontrol
       fi
       ;;
     *"Volume Up"*)
@@ -130,7 +130,7 @@ case "$chosen" in
       if ! pacman -Q arandr &>/dev/null; then
         alacritty -e sudo pacman -S --noconfirm arandr
       fi
-      arandr &
+      arandr
       ;;
     *"List Monitors"*)
       alacritty -e sh -c "xrandr; echo ''; echo 'Press enter to close'; read"
@@ -420,21 +420,35 @@ case "$chosen" in
       sh -c "$HOME/.config/scripts/rofi-web.sh"
       ;;
     *"Color Picker"*)
-      xcolor -s clipboard &
-      dunstify "Color Picker" "Hex code copied to clipboard!"
+      hex=$(xcolor -s clipboard)
+      if [ -n "$hex" ]; then
+        dunstify "Color Picker" "Hex code $hex copied to clipboard!"
+      fi
       ;;
     *"EXIF"*)
-      img=$(fd -e jpg -e png -e jpeg | rofi -normal-window -dmenu -i -p "Select Image:")
-      if [ -n "$img" ]; then
-        act_options="  View\n  Remove"
-        act=$(echo -e "$act_options" | rofi -normal-window -dmenu -p "Action:")
-        if [[ "$act" == *"View"* ]]; then
-          alacritty -e sh -c "exiftool \"$img\"; echo ''; echo 'Press enter to close...'; read"
-        elif [[ "$act" == *"Remove"* ]]; then
-          exiftool -all= "$img"
-          dunstify "EXIF removed" "$img"
-        fi
-      fi
+      while true; do
+        exif_options="  Select Files (fzf)\n  Select Folder\n  Back"
+        exif_chosen="$(echo -e "$exif_options" | rofi -normal-window -dmenu -p "EXIF Action")"
+        case "$exif_chosen" in
+        *"Select Files"*)
+          alacritty -e sh -c "files=\$(fd -t f -e jpg -e jpeg -e png -e mp4 -e mkv -e pdf -e mov -e avi | fzf -m --prompt='Select Files (Tab to multi-select): '); [ -z \"\$files\" ] && exit; act=\$(echo -e 'View\nRemove' | fzf --prompt='Action: '); if [ \"\$act\" = 'View' ]; then echo \"\$files\" | tr '\n' '\0' | xargs -0 exiftool | less; elif [ \"\$act\" = 'Remove' ]; then echo \"\$files\" | tr '\n' '\0' | xargs -0 exiftool -all=; echo 'EXIF removed!'; sleep 2; fi"
+          ;;
+        *"Select Folder"*)
+          folder=$(fd -t d | rofi -normal-window -dmenu -i -p "Select Folder:")
+          if [ -n "$folder" ]; then
+            act=$(echo -e "  View\n  Remove" | rofi -normal-window -dmenu -p "Folder Action:")
+            if [[ "$act" == *"View"* ]]; then
+              alacritty -e sh -c "exiftool \"$folder\"/* | less"
+            elif [[ "$act" == *"Remove"* ]]; then
+              alacritty -e sh -c "exiftool -all= -r \"$folder\"; echo 'EXIF removed from folder!'; sleep 2"
+            fi
+          fi
+          ;;
+        "" | *"Back"*)
+          break
+          ;;
+        esac
+      done
       ;;
     *"Media"*)
       while true; do
@@ -480,12 +494,18 @@ case "$chosen" in
   done
   exec "$0"
   ;;
-*"Configure DWM"*)
+*"Settings"*)
   while true; do
-    dwm_options="  Configure DWM (config.h)\n  Configure Slock (config.h)\n  Configure Slstatus (config.h)\n  Configure Startup (.xprofile)\n  Compile DWM\n  Compile Slock\n  Compile Slstatus\n  Back"
-    dwm_chosen="$(echo -e "$dwm_options" | rofi -normal-window -dmenu -p "DWM Menu")"
+    set_options="  Change Username\n  Change Password\n  Configure DWM\n  Configure Slock\n  Configure Slstatus\n  Configure Startup\n  Compile DWM\n  Compile Slock\n  Compile Slstatus\n  Back"
+    set_chosen="$(echo -e "$set_options" | rofi -normal-window -dmenu -p "Settings Menu")"
 
-    case "$dwm_chosen" in
+    case "$set_chosen" in
+    *"Change Username"*)
+      alacritty -e sh -c "read -p 'Enter NEW Username: ' newuser; sudo usermod -l \"\$newuser\" \"\$USER\"; sudo usermod -d \"/home/\$newuser\" -m \"\$newuser\"; echo 'Process Complete! Reboot recommended.'; read"
+      ;;
+    *"Change Password"*)
+      alacritty -e passwd
+      ;;
     *"Configure DWM"*)
       alacritty -e nano "$HOME/dwm/config.h"
       ;;

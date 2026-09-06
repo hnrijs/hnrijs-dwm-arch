@@ -330,7 +330,7 @@ case "$chosen" in
 
     case "$fw_chosen" in
     *"Edit Custom Config"*)
-      alacritty -e sh -c "sudo nano /etc/default/ufw"
+      alacritty -e sh -c "sudo nvim /etc/default/ufw"
       ;;
     *"Enable UFW"*)
       if ! pacman -Q ufw &>/dev/null; then
@@ -364,10 +364,10 @@ case "$chosen" in
         sys_chosen="$(echo -e "$sys_options" | rofi -normal-window -dmenu -p "System Menu")"
         case "$sys_chosen" in
         *"Update System"*)
-          alacritty -e sh -c "$HOME/.config/scripts/system_update.sh; echo ''; echo 'Press enter to close...'; read"
+          alacritty -e sh -c "$HOME/.config/scripts/system_update.sh; echo ''; echo 'Press enter to close'; read"
           ;;
         *"Clean System"*)
-          alacritty -e sh -c "$HOME/.config/scripts/system_clean.sh; echo ''; echo 'Press enter to close...'; read"
+          alacritty -e sh -c "$HOME/.config/scripts/system_clean.sh; echo ''; echo 'Press enter to close'; read"
           ;;
         "" | *"Back"*)
           break
@@ -414,7 +414,7 @@ case "$chosen" in
       done
       ;;
     *"Speed Test"*)
-      alacritty -e sh -c "speedtest-cli; echo ''; echo 'Press enter to close...'; read"
+      alacritty -e sh -c "speedtest-cli; echo ''; echo 'Press enter to close'; read"
       ;;
     *"Web Search"*)
       sh -c "$HOME/.config/scripts/rofi-web.sh"
@@ -485,7 +485,7 @@ case "$chosen" in
       sh -c "$HOME/.config/scripts/downloader.sh"
       ;;
     *"IP Locator"*)
-      alacritty -e sh -c "python3 $HOME/.config/iploc/iploc.py; echo ''; echo 'Press enter to close...'; read"
+      alacritty -e sh -c "python3 $HOME/.config/iploc/iploc.py; echo ''; echo 'Press enter to close'; read"
       ;;
     "" | *"Back"*)
       break
@@ -496,40 +496,62 @@ case "$chosen" in
   ;;
 *"Settings"*)
   while true; do
-    set_options="  Change Username\n  Change Password\n  Configure DWM\n  Configure Slock\n  Configure Slstatus\n  Configure Startup\n  Compile DWM\n  Compile Slock\n  Compile Slstatus\n  Back"
+    set_options="  Change Username\n  Change Password\n  Startup Settings\n  DWM Settings\n  Back"
     set_chosen="$(echo -e "$set_options" | rofi -normal-window -dmenu -p "Settings Menu")"
 
     case "$set_chosen" in
     *"Change Username"*)
-      alacritty -e sh -c "read -p 'Enter NEW Username: ' newuser; sudo usermod -l \"\$newuser\" \"\$USER\"; sudo usermod -d \"/home/\$newuser\" -m \"\$newuser\"; echo 'Process Complete! Reboot recommended.'; read"
+      alacritty -e sh -c "read -p 'Enter NEW Username: ' newuser; sudo usermod -l \"\$newuser\" \"\$USER\"; sudo usermod -d \"/home/\$newuser\" -m \"\$newuser\"; echo 'Process Complete! Reboot recommended.'; echo ''; echo 'Press enter to close'; read"
       ;;
     *"Change Password"*)
       alacritty -e passwd
       ;;
-    *"Configure DWM"*)
-      alacritty -e nano "$HOME/dwm/config.h"
+    *"Startup Settings"*)
+      alacritty -e nvim "$HOME/.xprofile"
       ;;
-    *"Configure Slock"*)
-      alacritty -e nano "$HOME/slock/config.h"
+    *"DWM Settings"*)
+      while true; do
+        dwm_options="  DWM\n  Slock\n  Slstatus\n  Back"
+        dwm_chosen="$(echo -e "$dwm_options" | rofi -normal-window -dmenu -p "DWM Settings")"
+        case "$dwm_chosen" in
+        *"DWM"*)
+          while true; do
+            act_options="  Edit DWM\n  Compile DWM\n  Back"
+            act_chosen="$(echo -e "$act_options" | rofi -normal-window -dmenu -p "DWM")"
+            case "$act_chosen" in
+            *"Edit DWM"*) alacritty -e nvim "$HOME/dwm/config.h" ;;
+            *"Compile DWM"*) alacritty -e sh -c "cd $HOME/dwm && sudo make clean install && echo 'DWM Compiled Successfully!' && sleep 2" ;;
+            "" | *"Back"*) break ;;
+            esac
+          done
+          ;;
+        *"Slock"*)
+          while true; do
+            act_options="  Edit Slock\n  Compile Slock\n  Back"
+            act_chosen="$(echo -e "$act_options" | rofi -normal-window -dmenu -p "Slock")"
+            case "$act_chosen" in
+            *"Edit Slock"*) alacritty -e nvim "$HOME/slock/config.h" ;;
+            *"Compile Slock"*) alacritty -e sh -c "cd $HOME/slock && sudo make clean install && echo 'Slock Compiled Successfully!' && sleep 2" ;;
+            "" | *"Back"*) break ;;
+            esac
+          done
+          ;;
+        *"Slstatus"*)
+          while true; do
+            act_options="  Edit Slstatus\n  Compile Slstatus\n  Back"
+            act_chosen="$(echo -e "$act_options" | rofi -normal-window -dmenu -p "Slstatus")"
+            case "$act_chosen" in
+            *"Edit Slstatus"*) alacritty -e nvim "$HOME/slstatus/config.h" ;;
+            *"Compile Slstatus"*) alacritty -e sh -c "cd $HOME/slstatus && sudo make clean install && echo 'Slstatus Compiled Successfully!' && sleep 2" ;;
+            "" | *"Back"*) break ;;
+            esac
+          done
+          ;;
+        "" | *"Back"*) break ;;
+        esac
+      done
       ;;
-    *"Configure Slstatus"*)
-      alacritty -e nano "$HOME/slstatus/config.h"
-      ;;
-    *"Configure Startup"*)
-      alacritty -e nano "$HOME/.xprofile"
-      ;;
-    *"Compile DWM"*)
-      alacritty -e sh -c "cd $HOME/dwm && sudo make clean install && echo 'DWM Compiled Successfully!' && sleep 2"
-      ;;
-    *"Compile Slock"*)
-      alacritty -e sh -c "cd $HOME/slock && sudo make clean install && echo 'Slock Compiled Successfully!' && sleep 2"
-      ;;
-    *"Compile Slstatus"*)
-      alacritty -e sh -c "cd $HOME/slstatus && sudo make clean install && echo 'Slstatus Compiled Successfully!' && sleep 2"
-      ;;
-    "" | *"Back"*)
-      break
-      ;;
+    "" | *"Back"*) break ;;
     esac
   done
   exec "$0"

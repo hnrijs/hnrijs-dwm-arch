@@ -25,8 +25,8 @@ sudo pacman -S --needed --noconfirm \
     thunar rofi imv btop playerctl alacritty thunar-archive-plugin xarchiver zip unzip polkit-gnome \
     xclip maim ttf-jetbrains-mono-nerd noto-fonts-emoji ttf-nerd-fonts-symbols \
     gtk3 pavucontrol nwg-look mpv brightnessctl xsettingsd nano android-udev \
-    xorg-xrandr power-profiles-daemon python-gobject arandr picom libreoffice-fresh \
-    lightdm lightdm-gtk-greeter dunst xorg-xinput qalculate-gtk aria2 jdk-openjdk \
+    xorg-xrandr power-profiles-daemon python-gobject arandr picom \
+    lightdm lightdm-gtk-greeter dunst xorg-xinput aria2 jdk-openjdk \
     curl jq xdg-utils libnotify xorg-xset librewolf imagemagick audacious ffmpegthumbnailer \
     clipmenu xsel xdotool ttf-dejavu ttf-font-awesome noto-fonts monolith \
     noto-fonts-cjk gvfs gvfs-mtp udisks2 thunar-volman switcheroo xwallpaper redshift \

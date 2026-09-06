@@ -74,10 +74,7 @@ Here are the essential shortcuts for managing this desktop environment (`$mod` r
 | `$mod + X` | Open NeoVim / LazyVim |
 | `$mod + B` | Open LibreWolf |
 | `$mod + T` | Open Signal |
-| `$mod + K` | Open Krita |
-| `$mod + G` | Open Gimp |
-| `$mod + C` | Open Gnome Calendar |
-| `$mod + L` | Open Libre Office |
+ `$mod + C` | Open Calendar |
 | `$mod + O` | Open OBS Studio |
 | `$mod + R` | Open Davinci Resolve |
 | `$mod + M` | Open Audacious |
@@ -115,7 +112,7 @@ Here are the essential shortcuts for managing this desktop environment (`$mod` r
 | `$mod + Shift + N` | Toggle Do Not Disturb |
 | `$mod + Shift + H` | Color Picker |
 | `$mod + Shift + C` | Run System Cleanup Script |
-| `$mod + Shift + U` | Run Full System Update (Pacman + AUR) |
+| `$mod + Shift + U` | Run Full System Update |
 | `$mod + Shift + Q` | Exit |
 
 ### Window Management & Layouts

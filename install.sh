@@ -30,7 +30,7 @@ sudo pacman -S --needed --noconfirm \
     curl jq xdg-utils libnotify xorg-xset librewolf imagemagick audacious ffmpegthumbnailer \
     clipmenu xsel xdotool ttf-dejavu ttf-font-awesome noto-fonts monolith \
     noto-fonts-cjk gvfs gvfs-mtp udisks2 thunar-volman switcheroo xwallpaper redshift \
-    signal-desktop obs-studio krita gimp gnome-calendar proton-vpn-gtk-app \
+    signal-desktop obs-studio krita gimp proton-vpn-gtk-app \
     xcolor less xprintidle neovim ripgrep fd lazygit tumbler fastfetch yt-dlp \
     fzf ncdu python-requests exiftool ripgrep speedtest-cli
 

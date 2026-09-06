@@ -313,14 +313,14 @@ case "$chosen" in
     *"Set Google"*)
       alacritty -e sh -c "sudo chattr -i /etc/resolv.conf 2>/dev/null; sudo rm -f /etc/resolv.conf; echo 'nameserver 8.8.8.8' | sudo tee /etc/resolv.conf; echo 'nameserver 8.8.4.4' | sudo tee -a /etc/resolv.conf; sudo chattr +i /etc/resolv.conf; echo 'DNS locked to Google!'; sleep 2"
       ;;
+    *"Reset to DHCP"*)
+      alacritty -e sh -c "sudo chattr -i /etc/resolv.conf 2>/dev/null; sudo rm -f /etc/resolv.conf; sudo ln -s /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf 2>/dev/null || sudo systemctl restart NetworkManager; echo 'DNS reset to System Defaults!'; sleep 2"
+      ;;
     *"Set Custom DNS"*)
       custom_dns=$(rofi -normal-window -dmenu -p "Enter DNS IP (e.g. 9.9.9.9):")
       if [ -n "$custom_dns" ]; then
         alacritty -e sh -c "sudo chattr -i /etc/resolv.conf 2>/dev/null; sudo rm -f /etc/resolv.conf; echo 'nameserver $custom_dns' | sudo tee /etc/resolv.conf; sudo chattr +i /etc/resolv.conf; echo 'DNS locked to $custom_dns!'; sleep 2"
       fi
-      ;;
-    *"Reset to DHCP"*)
-      alacritty -e sh -c "sudo chattr -i /etc/resolv.conf 2>/dev/null; sudo rm -f /etc/resolv.conf; sudo ln -s /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf 2>/dev/null || sudo systemctl restart NetworkManager; echo 'DNS reset to System Defaults!'; sleep 2"
       ;;
     "" | *"Back"*)
       break
@@ -360,27 +360,10 @@ case "$chosen" in
   ;;
 *"Tools"*)
   while true; do
-    tools_options="  System\n  Disk Space\n  App Manager\n  File Search\n  Web Search\n  Speed Test\n󰱨  Emoji Picker\n  Color Picker\n  EXIF\n  Media\n  Downloader\n  IP Locator\n  Calculator\n  Calendar\n  Periodic Table\n󰗊  Physics Formulas\n  Back"
+    tools_options="  Disk Space\n  App Manager\n  File Search\n  Weather Search\n  Speed Test\n󰱨  Emoji Picker\n  Color Picker\n  EXIF Data\n  Media Tools\n  Downloader\n  IP Locator\n  Calculator\n  Periodic Table\n  Back"
     tools_chosen="$(echo -e "$tools_options" | rofi -normal-window -dmenu -p "Tools Menu")"
 
     case "$tools_chosen" in
-    *"System"*)
-      while true; do
-        sys_options="  Update System\n  Clean System\n  Back"
-        sys_chosen="$(echo -e "$sys_options" | rofi -normal-window -dmenu -p "System Menu")"
-        case "$sys_chosen" in
-        *"Update System"*)
-          alacritty -e sh -c "bash \"$HOME/.config/scripts/system_update.sh\"; echo ''; echo 'Press enter to close...'; read"
-          ;;
-        *"Clean System"*)
-          alacritty -e sh -c "bash \"$HOME/.config/scripts/system_clean.sh\"; echo ''; echo 'Press enter to close...'; read"
-          ;;
-        "" | *"Back"*)
-          break
-          ;;
-        esac
-      done
-      ;;
     *"Disk Space"*)
       alacritty -e sudo ncdu /
       ;;
@@ -419,8 +402,26 @@ case "$chosen" in
         esac
       done
       ;;
-    *"Web Search"*)
-      bash "$HOME/.config/scripts/rofi-web.sh"
+    *"Weather Search"*)
+      loc=$(rofi -normal-window -dmenu -p "Enter Location:")
+      if [ -n "$loc" ]; then
+        rofi_override="
+        window { 
+            width: 800px; 
+            border-radius: 0px; 
+        }
+        textbox { 
+            font: \"monospace 12\"; 
+            padding: 20px; 
+            text-color: #cdd6f4;
+            background-color: transparent;
+        }
+        "
+        weather_data=$(curl -s "wttr.in/$loc?0T")
+        if [ -n "$weather_data" ]; then
+          rofi -normal-window -theme-str "${rofi_override}" -e "$weather_data"
+        fi
+      fi
       ;;
     *"Speed Test"*)
       alacritty -e sh -c "speedtest-cli; echo ''; echo 'Press enter to close...'; read"
@@ -434,7 +435,7 @@ case "$chosen" in
         dunstify "Color Picker" "Hex code $hex copied to clipboard!"
       fi
       ;;
-    *"EXIF"*)
+    *"EXIF Data"*)
       while true; do
         exif_options="  Select Files (fzf)\n  Select Folder\n  Back"
         exif_chosen="$(echo -e "$exif_options" | rofi -normal-window -dmenu -p "EXIF Action")"
@@ -459,34 +460,81 @@ case "$chosen" in
         esac
       done
       ;;
-    *"Media"*)
+    *"Media Tools"*)
       while true; do
-        media_options="  Video Rescaler\n  Image Switcheroo\n  Back"
+        media_options="  Video\n  Audio\n  Image\n  Back"
         media_chosen="$(echo -e "$media_options" | rofi -normal-window -dmenu -p "Media Menu")"
+
         case "$media_chosen" in
-        *"Video Rescaler"*)
-          vf=$(fd -e mp4 -e mkv -e webm -e avi | rofi -normal-window -dmenu -i -p "Select Video:")
-          if [ -n "$vf" ]; then
-            res_options="󰨣  3840x2160 (4K)\n󰨣  2560x1440 (2K)\n󰨣  1920x1080 (1080p)\n󰨣  1280x720 (720p)\n  Custom\n  Back"
-            res_chosen="$(echo -e "$res_options" | rofi -normal-window -dmenu -p "Select Resolution:")"
-
-            if [[ "$res_chosen" == *"Custom"* ]]; then
-              res=$(rofi -normal-window -dmenu -p "Enter Resolution (e.g. 1080x1080):")
-            elif [[ "$res_chosen" != *"Back"* ]] && [ -n "$res_chosen" ]; then
-              res=$(echo "$res_chosen" | awk '{print $2}')
-            fi
-
-            if [ -n "$res" ] && [[ "$res_chosen" != *"Back"* ]]; then
-              alacritty -e sh -c "ffmpeg -i \"$vf\" -vf scale=$res \"${vf%.*}_$res.mp4\"; echo 'Done!'; sleep 2"
-            fi
-          fi
+        *"Video"*)
+          while true; do
+            vid_opts="  Rescale Video\n󰝟  Remove Audio\n✂  Trim Video\n  Back"
+            vid_chosen="$(echo -e "$vid_opts" | rofi -normal-window -dmenu -p "Video")"
+            case "$vid_chosen" in
+            *"Rescale Video"*)
+              vf=$(fd -e mp4 -e mkv -e webm -e avi | rofi -normal-window -dmenu -i -p "Select Video:")
+              if [ -n "$vf" ]; then
+                res_options="󰨣  3840x2160 (4K)\n󰨣  2560x1440 (2K)\n󰨣  1920x1080 (1080p)\n󰨣  1280x720 (720p)\n  Custom\n  Back"
+                res_chosen="$(echo -e "$res_options" | rofi -normal-window -dmenu -p "Select Resolution:")"
+                if [[ "$res_chosen" == *"Custom"* ]]; then
+                  res=$(rofi -normal-window -dmenu -p "Enter Resolution (e.g. 1080x1080):")
+                elif [[ "$res_chosen" != *"Back"* ]] && [ -n "$res_chosen" ]; then
+                  res=$(echo "$res_chosen" | awk '{print $2}')
+                fi
+                if [ -n "$res" ] && [[ "$res_chosen" != *"Back"* ]]; then
+                  alacritty -e sh -c "ffmpeg -i \"$vf\" -vf scale=$res \"${vf%.*}_$res.mp4\"; echo 'Done!'; sleep 2"
+                fi
+              fi
+              ;;
+            *"Remove Audio"*)
+              vf=$(fd -e mp4 -e mkv -e webm -e avi | rofi -normal-window -dmenu -i -p "Select Video:")
+              if [ -n "$vf" ]; then
+                alacritty -e sh -c "ffmpeg -i \"$vf\" -c copy -an \"${vf%.*}_noaudio.${vf##*.}\"; echo 'Done!'; sleep 2"
+              fi
+              ;;
+            *"Trim Video"*)
+              vf=$(fd -e mp4 -e mkv -e webm -e avi | rofi -normal-window -dmenu -i -p "Select Video:")
+              if [ -n "$vf" ]; then
+                start=$(rofi -normal-window -dmenu -p "Start Time (HH:MM:SS):")
+                end=$(rofi -normal-window -dmenu -p "End Time (HH:MM:SS):")
+                if [ -n "$start" ] && [ -n "$end" ]; then
+                  alacritty -e sh -c "ffmpeg -i \"$vf\" -ss \"$start\" -to \"$end\" -c copy \"${vf%.*}_trim.${vf##*.}\"; echo 'Done!'; sleep 2"
+                fi
+              fi
+              ;;
+            "" | *"Back"*) break ;;
+            esac
+          done
           ;;
-        *"Image Switcheroo"*)
-          switcheroo
+        *"Audio"*)
+          while true; do
+            aud_opts="  Convert Format\n  Back"
+            aud_chosen="$(echo -e "$aud_opts" | rofi -normal-window -dmenu -p "Audio")"
+            case "$aud_chosen" in
+            *"Convert Format"*)
+              af=$(fd -e mp3 -e wav -e flac -e m4a -e ogg | rofi -normal-window -dmenu -i -p "Select Audio:")
+              if [ -n "$af" ]; then
+                fmt=$(echo -e "mp3\nwav\nflac\nm4a\nogg" | rofi -normal-window -dmenu -p "Target Format:")
+                if [ -n "$fmt" ]; then
+                  alacritty -e sh -c "ffmpeg -i \"$af\" \"${af%.*}.$fmt\"; echo 'Done!'; sleep 2"
+                fi
+              fi
+              ;;
+            "" | *"Back"*) break ;;
+            esac
+          done
           ;;
-        "" | *"Back"*)
-          break
+        *"Image"*)
+          while true; do
+            img_opts="  Image Switcheroo\n  Back"
+            img_chosen="$(echo -e "$img_opts" | rofi -normal-window -dmenu -p "Image")"
+            case "$img_chosen" in
+            *"Image Switcheroo"*) switcheroo ;;
+            "" | *"Back"*) break ;;
+            esac
+          done
           ;;
+        "" | *"Back"*) break ;;
         esac
       done
       ;;
@@ -499,14 +547,8 @@ case "$chosen" in
     *"Calculator"*)
       bash "$HOME/.config/scripts/rofi-calc.sh"
       ;;
-    *"Calendar"*)
-      bash "$HOME/.config/scripts/rofi-calendar.sh"
-      ;;
     *"Periodic Table"*)
       bash "$HOME/.config/scripts/rofi-periodic.sh"
-      ;;
-    *"Physics Formulas"*)
-      bash "$HOME/.config/scripts/rofi-physics.sh"
       ;;
     "" | *"Back"*)
       break
@@ -517,10 +559,27 @@ case "$chosen" in
   ;;
 *"Settings"*)
   while true; do
-    set_options="  Change Username\n  Change Password\n󰥔  Change Timezone\n  Startup Settings\n  DWM Settings\n  Back"
+    set_options="  System Maintenance\n  Change Username\n  Change Password\n󰥔  Change Timezone\n  Startup Settings\n  DWM Settings\n  Back"
     set_chosen="$(echo -e "$set_options" | rofi -normal-window -dmenu -p "Settings Menu")"
 
     case "$set_chosen" in
+    *"System Maintenance"*)
+      while true; do
+        sys_options="  Update System\n  Clean System\n  Back"
+        sys_chosen="$(echo -e "$sys_options" | rofi -normal-window -dmenu -p "System Menu")"
+        case "$sys_chosen" in
+        *"Update System"*)
+          alacritty -e sh -c "bash \"$HOME/.config/scripts/system_update.sh\"; echo ''; echo 'Press enter to close...'; read"
+          ;;
+        *"Clean System"*)
+          alacritty -e sh -c "bash \"$HOME/.config/scripts/system_clean.sh\"; echo ''; echo 'Press enter to close...'; read"
+          ;;
+        "" | *"Back"*)
+          break
+          ;;
+        esac
+      done
+      ;;
     *"Change Username"*)
       alacritty -e sh -c "read -p 'Enter NEW Username: ' newuser; sudo usermod -l \"\$newuser\" \"\$USER\"; sudo usermod -d \"/home/\$newuser\" -m \"\$newuser\"; echo 'Process Complete! Reboot recommended.'; echo ''; echo 'Press enter to close'; read"
       ;;

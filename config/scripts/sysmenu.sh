@@ -360,7 +360,7 @@ case "$chosen" in
   ;;
 *"Tools"*)
   while true; do
-    tools_options="  Disk Space\n  App Manager\n  File Search\n  Weather Search\n  Speed Test\n󰱨  Emoji Picker\n  Color Picker\n  EXIF Data\n  Media Tools\n  Downloader\n  IP Locator\n  Calculator\n  Periodic Table\n  Back"
+    tools_options="  Disk Space\n  App Manager\n  File Search\n  Weather Search\n  Speed Test\n󰱨  Emoji Picker\n  Color Picker\n  Media Tools\n  Downloader\n  IP Locator\n  Calculator\n  Periodic Table\n  Back"
     tools_chosen="$(echo -e "$tools_options" | rofi -normal-window -dmenu -p "Tools Menu")"
 
     case "$tools_chosen" in
@@ -435,40 +435,15 @@ case "$chosen" in
         dunstify "Color Picker" "Hex code $hex copied to clipboard!"
       fi
       ;;
-    *"EXIF Data"*)
-      while true; do
-        exif_options="  Select Files (fzf)\n  Select Folder\n  Back"
-        exif_chosen="$(echo -e "$exif_options" | rofi -normal-window -dmenu -p "EXIF Action")"
-        case "$exif_chosen" in
-        *"Select Files"*)
-          alacritty -e sh -c "files=\$(fd -t f -e jpg -e jpeg -e png -e mp4 -e mkv -e pdf -e mov -e avi | fzf -m --prompt='Select Files (Tab to multi-select): '); [ -z \"\$files\" ] && exit; act=\$(echo -e 'View\nRemove' | fzf --prompt='Action: '); if [ \"\$act\" = 'View' ]; then echo \"\$files\" | tr '\n' '\0' | xargs -0 exiftool | less; elif [ \"\$act\" = 'Remove' ]; then echo \"\$files\" | tr '\n' '\0' | xargs -0 exiftool -all=; echo 'EXIF removed!'; sleep 2; fi"
-          ;;
-        *"Select Folder"*)
-          folder=$(fd -t d | rofi -normal-window -dmenu -i -p "Select Folder:")
-          if [ -n "$folder" ]; then
-            act=$(echo -e "  View\n  Remove" | rofi -normal-window -dmenu -p "Folder Action:")
-            if [[ "$act" == *"View"* ]]; then
-              alacritty -e sh -c "exiftool \"$folder\"/* | less"
-            elif [[ "$act" == *"Remove"* ]]; then
-              alacritty -e sh -c "exiftool -all= -r \"$folder\"; echo 'EXIF removed from folder!'; sleep 2"
-            fi
-          fi
-          ;;
-        "" | *"Back"*)
-          break
-          ;;
-        esac
-      done
-      ;;
     *"Media Tools"*)
       while true; do
-        media_options="  Video\n  Audio\n  Image\n  Back"
+        media_options="  Video\n  Audio\n  Image\n  EXIF Data\n  Back"
         media_chosen="$(echo -e "$media_options" | rofi -normal-window -dmenu -p "Media Menu")"
 
         case "$media_chosen" in
         *"Video"*)
           while true; do
-            vid_opts="  Rescale Video\n󰝟  Remove Audio\n✂  Trim Video\n  Back"
+            vid_opts="  Rescale Video\n󰝟  Remove Audio\n✂  Trim Video\n  Rotate Video\n  Mirror Video\n  Back"
             vid_chosen="$(echo -e "$vid_opts" | rofi -normal-window -dmenu -p "Video")"
             case "$vid_chosen" in
             *"Rescale Video"*)
@@ -502,6 +477,29 @@ case "$chosen" in
                 fi
               fi
               ;;
+            *"Rotate Video"*)
+              vf=$(fd -e mp4 -e mkv -e webm -e avi | rofi -normal-window -dmenu -i -p "Select Video:")
+              if [ -n "$vf" ]; then
+                rot_opts="  90° Clockwise\n  90° Counter-Clockwise\n  180°\n  Back"
+                rot_chosen="$(echo -e "$rot_opts" | rofi -normal-window -dmenu -p "Rotate Video")"
+                case "$rot_chosen" in
+                *"90° Clockwise"*) alacritty -e sh -c "ffmpeg -i \"$vf\" -vf \"transpose=1\" \"${vf%.*}_rot90cw.${vf##*.}\"; echo 'Done!'; sleep 2" ;;
+                *"90° Counter-Clockwise"*) alacritty -e sh -c "ffmpeg -i \"$vf\" -vf \"transpose=2\" \"${vf%.*}_rot90ccw.${vf##*.}\"; echo 'Done!'; sleep 2" ;;
+                *"180°"*) alacritty -e sh -c "ffmpeg -i \"$vf\" -vf \"transpose=1,transpose=1\" \"${vf%.*}_rot180.${vf##*.}\"; echo 'Done!'; sleep 2" ;;
+                esac
+              fi
+              ;;
+            *"Mirror Video"*)
+              vf=$(fd -e mp4 -e mkv -e webm -e avi | rofi -normal-window -dmenu -i -p "Select Video:")
+              if [ -n "$vf" ]; then
+                mir_opts="  Horizontal\n  Vertical\n  Back"
+                mir_chosen="$(echo -e "$mir_opts" | rofi -normal-window -dmenu -p "Mirror Video")"
+                case "$mir_chosen" in
+                *"Horizontal"*) alacritty -e sh -c "ffmpeg -i \"$vf\" -vf \"hflip\" \"${vf%.*}_hmirror.${vf##*.}\"; echo 'Done!'; sleep 2" ;;
+                *"Vertical"*) alacritty -e sh -c "ffmpeg -i \"$vf\" -vf \"vflip\" \"${vf%.*}_vmirror.${vf##*.}\"; echo 'Done!'; sleep 2" ;;
+                esac
+              fi
+              ;;
             "" | *"Back"*) break ;;
             esac
           done
@@ -526,11 +524,59 @@ case "$chosen" in
           ;;
         *"Image"*)
           while true; do
-            img_opts="  Image Switcheroo\n  Back"
+            img_opts="  Image Switcheroo\n  Rotate Image\n  Mirror Image\n  Back"
             img_chosen="$(echo -e "$img_opts" | rofi -normal-window -dmenu -p "Image")"
             case "$img_chosen" in
             *"Image Switcheroo"*) switcheroo ;;
+            *"Rotate Image"*)
+              imf=$(fd -e jpg -e jpeg -e png -e webp | rofi -normal-window -dmenu -i -p "Select Image:")
+              if [ -n "$imf" ]; then
+                rot_opts="  90° Clockwise\n  90° Counter-Clockwise\n  180°\n  Back"
+                rot_chosen="$(echo -e "$rot_opts" | rofi -normal-window -dmenu -p "Rotate Image")"
+                case "$rot_chosen" in
+                *"90° Clockwise"*) alacritty -e sh -c "ffmpeg -i \"$imf\" -vf \"transpose=1\" \"${imf%.*}_rot90cw.${imf##*.}\"; echo 'Done!'; sleep 2" ;;
+                *"90° Counter-Clockwise"*) alacritty -e sh -c "ffmpeg -i \"$imf\" -vf \"transpose=2\" \"${imf%.*}_rot90ccw.${imf##*.}\"; echo 'Done!'; sleep 2" ;;
+                *"180°"*) alacritty -e sh -c "ffmpeg -i \"$imf\" -vf \"transpose=1,transpose=1\" \"${imf%.*}_rot180.${imf##*.}\"; echo 'Done!'; sleep 2" ;;
+                esac
+              fi
+              ;;
+            *"Mirror Image"*)
+              imf=$(fd -e jpg -e jpeg -e png -e webp | rofi -normal-window -dmenu -i -p "Select Image:")
+              if [ -n "$imf" ]; then
+                mir_opts="  Horizontal\n  Vertical\n  Back"
+                mir_chosen="$(echo -e "$mir_opts" | rofi -normal-window -dmenu -p "Mirror Image")"
+                case "$mir_chosen" in
+                *"Horizontal"*) alacritty -e sh -c "ffmpeg -i \"$imf\" -vf \"hflip\" \"${imf%.*}_hmirror.${imf##*.}\"; echo 'Done!'; sleep 2" ;;
+                *"Vertical"*) alacritty -e sh -c "ffmpeg -i \"$imf\" -vf \"vflip\" \"${imf%.*}_vmirror.${imf##*.}\"; echo 'Done!'; sleep 2" ;;
+                esac
+              fi
+              ;;
             "" | *"Back"*) break ;;
+            esac
+          done
+          ;;
+        *"EXIF Data"*)
+          while true; do
+            exif_options="  Select Files (fzf)\n  Select Folder\n  Back"
+            exif_chosen="$(echo -e "$exif_options" | rofi -normal-window -dmenu -p "EXIF Action")"
+            case "$exif_chosen" in
+            *"Select Files"*)
+              alacritty -e sh -c "files=\$(fd -t f -e jpg -e jpeg -e png -e mp4 -e mkv -e pdf -e mov -e avi | fzf -m --prompt='Select Files (Tab to multi-select): '); [ -z \"\$files\" ] && exit; act=\$(echo -e 'View\nRemove' | fzf --prompt='Action: '); if [ \"\$act\" = 'View' ]; then echo \"\$files\" | tr '\n' '\0' | xargs -0 exiftool | less; elif [ \"\$act\" = 'Remove' ]; then echo \"\$files\" | tr '\n' '\0' | xargs -0 exiftool -all=; echo 'EXIF removed!'; sleep 2; fi"
+              ;;
+            *"Select Folder"*)
+              folder=$(fd -t d | rofi -normal-window -dmenu -i -p "Select Folder:")
+              if [ -n "$folder" ]; then
+                act=$(echo -e "  View\n  Remove" | rofi -normal-window -dmenu -p "Folder Action:")
+                if [[ "$act" == *"View"* ]]; then
+                  alacritty -e sh -c "exiftool \"$folder\"/* | less"
+                elif [[ "$act" == *"Remove"* ]]; then
+                  alacritty -e sh -c "exiftool -all= -r \"$folder\"; echo 'EXIF removed from folder!'; sleep 2"
+                fi
+              fi
+              ;;
+            "" | *"Back"*)
+              break
+              ;;
             esac
           done
           ;;

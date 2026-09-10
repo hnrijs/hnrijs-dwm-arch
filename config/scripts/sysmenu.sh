@@ -688,4 +688,4 @@ case "$chosen" in
   done
   exec "$0"
   ;;
-esac
+e
